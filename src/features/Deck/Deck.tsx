@@ -14,7 +14,7 @@ const Deck: FC<DeckProps> = () => {
 
   return (
     <div className={styles.Deck} data-testid="Deck" onClick={(_) => {dispatch(draw()); dispatch(addCard(lootCards[lootCards.length - 1]));}}>
-      {lootCards.map((loot: Card) => <span>{loot.description}</span>)}
+      {lootCards.map((loot: Card) => <span>{loot.name}</span>)}
     </div>
   );
 };

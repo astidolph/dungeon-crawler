@@ -1,1 +1,10 @@
-.Hand {}
+.Hand {
+    display: flex;
+}
+
+.Card {
+    height: 150px;
+    width: 100px;
+    border: 1px solid black;
+    background: white;
+}

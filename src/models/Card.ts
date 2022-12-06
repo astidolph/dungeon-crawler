@@ -1,3 +1,11 @@
 export class Card {
-    description: string = '';
+    id!: number;
+    name: string = '';
+    description?: string;
+    effects: Effect[] = [];
+}
+
+export class Effect {
+    payload!: number;
+    type!: string;
 }

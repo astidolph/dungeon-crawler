@@ -1,16 +1,18 @@
 import React, { FC } from 'react';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
-import { selectHand } from './HandSlice';
+import { playCard, selectHand } from './HandSlice';
+import styles from './Hand.module.css';
 
 interface HandProps {}
 
 const Hand: FC<HandProps> = () => {
   const hand = useAppSelector(selectHand);
-
+  const dispatch = useAppDispatch();
+  
   return (
-    <div>
-      {hand.map((card: Card) => <span>{card.description}</span>)}
+    <div className={styles.Hand}>
+      {hand.map((card: Card) => <div className={styles.Card} onClick={() => dispatch(playCard(card))}>{card.name}</div>)}
     </div>
   );
 };
