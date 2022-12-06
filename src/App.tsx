@@ -2,7 +2,7 @@ import './App.css';
 import { useAppSelector } from './app/hooks';
 import Deck from './features/Deck/Deck';
 import Hand from './features/Hand/Hand';
-import { selectCoins } from './features/Hand/HandSlice';
+import { selectCoins } from './features/PlayerSlice';
 
 function App() {
   const coins = useAppSelector(selectCoins);

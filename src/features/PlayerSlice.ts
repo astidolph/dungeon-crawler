@@ -1,30 +1,30 @@
-import { AnyAction, createAsyncThunk, createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { Card } from "../../models/Card";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppThunk, RootState } from "../app/store";
+import { Card } from "../models/Card";
 
-export interface HandState {
+export interface PlayerState {
     cards: Card[];
     coins: number;
     lastCardPlayed: Card | null;
 }
 
-const initialState: HandState = {
+const initialState: PlayerState = {
     cards: [],
     coins: 0,
     lastCardPlayed: null
 };
 
 export const playCard =
-  (card: Card): ThunkAction<void, RootState, unknown, AnyAction> =>
+  (card: Card): AppThunk =>
   dispatch => {
     card.effects.forEach(effect => {
-        console.log(effect);
+        dispatch(gainCoins(1));
     });
     dispatch(cardPlayed(card));
   };
 
-export const handSlice = createSlice({
-    name: 'hand',
+export const playerSlice = createSlice({
+    name: 'player',
     initialState,
     reducers: {
         addCard: (state, cardToAdd: PayloadAction<Card>) => {
@@ -43,10 +43,10 @@ export const handSlice = createSlice({
     }
 });
 
-export const { addCard, cardPlayed, gainCoins } = handSlice.actions;
+export const { addCard, cardPlayed, gainCoins } = playerSlice.actions;
 
-export const selectHand = (state: RootState) => state.hand.cards;
+export const selectHand = (state: RootState) => state.player.cards;
 
-export const selectCoins = (state: RootState) => state.hand.coins;
+export const selectCoins = (state: RootState) => state.player.coins;
 
-export default handSlice.reducer;
+export default playerSlice.reducer;

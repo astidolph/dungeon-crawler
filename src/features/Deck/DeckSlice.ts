@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { Card } from "../../models/Card";
-import { gainCoins } from "../Hand/HandSlice";
+import { gainCoins } from "../PlayerSlice";
 
 export interface DeckState {
     cards: Card[];

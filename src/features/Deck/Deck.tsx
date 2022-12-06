@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
-import { addCard } from '../Hand/HandSlice';
+import { addCard } from '../PlayerSlice';
 import styles from './Deck.module.css';
 import { draw, selectDeckCards } from './DeckSlice';
 

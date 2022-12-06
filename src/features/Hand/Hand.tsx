@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
-import { playCard, selectHand } from './HandSlice';
+import { playCard, selectHand } from '../PlayerSlice';
 import styles from './Hand.module.css';
 
 interface HandProps {}
