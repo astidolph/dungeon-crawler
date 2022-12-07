@@ -4,7 +4,7 @@ import { useAppSelector } from './app/hooks';
 import Deck from './features/Deck/Deck';
 import { selectDeckCards, selectTreasureCards } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
-import { selectCoins, selectDamage, selectHealth, selectMaxHealth } from './features/PlayerSlice';
+import { selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
 
 function App() {
   const coins = useAppSelector(selectCoins);
@@ -13,6 +13,7 @@ function App() {
   const damage = useAppSelector(selectDamage);
   const lootDeck = useAppSelector(selectDeckCards);
   const treasureDeck = useAppSelector(selectTreasureCards);
+  const items = useAppSelector(selectItems);
   
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
       Coins: {coins}
       Health: {health}/{maxHealth}
       Damage: {damage}
+      Items: {items.map(x => x.name + ' ' + x.description)}
       <Hand></Hand>
     </div>
   );

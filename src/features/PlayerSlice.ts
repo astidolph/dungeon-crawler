@@ -41,6 +41,12 @@ export const playerSlice = createSlice({
                 hand: [cardToAdd.payload, ...state.hand]
             }
         },
+        addItem: (state, cardToAdd: PayloadAction<Card>) => {
+            return {
+                ...state,
+                items: [cardToAdd.payload, ...state.items]
+            }
+        },
         cardPlayed: (state, cardToPlay: PayloadAction<Card>) => {
             state.hand = state.hand.filter(card => card.id !== cardToPlay.payload.id);
         },
@@ -54,7 +60,7 @@ export const playerSlice = createSlice({
     },
 });
 
-export const { addCardToHand, cardPlayed, gainCoins } = playerSlice.actions;
+export const { addCardToHand, cardPlayed, gainCoins, addItem } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 
@@ -65,5 +71,7 @@ export const selectHealth = (state: RootState) => state.player.currentHealth;
 export const selectMaxHealth = (state: RootState) => state.player.totalHealth;
 
 export const selectDamage = (state: RootState) => state.player.currentDamage;
+
+export const selectItems = (state: RootState) => state.player.items;
 
 export default playerSlice.reducer;

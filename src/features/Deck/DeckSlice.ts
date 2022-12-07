@@ -1,36 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
 import loot_cards from "../../app/loot-cards";
-import { RootState } from "../../app/store";
+import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
-import { Card } from "../../models/Card";
-import { addCardToHand } from "../PlayerSlice";
+import { Card, CardType } from "../../models/Card";
+import { addCardToHand, addItem, playCard } from "../PlayerSlice";
 
 export interface DeckState {
-    cards: Card[];
+    lootDeck: Card[];
     treasureDeck: Card[];
 }
 
 const initialState: DeckState = {
-    cards: loot_cards.cards,
+    lootDeck: loot_cards.cards,
     treasureDeck: treasure_cards.cards
 };
+
+export const drawCard =
+  (card: Card): AppThunk =>
+  dispatch => {
+    switch(card.type) {
+        case CardType.Loot:
+            dispatch(addCardToHand(card));
+            dispatch(lootCardDrawn());
+            break;
+        case CardType.Treasure:
+            dispatch(addItem(card));
+            dispatch(treasureCardDrawn());
+    }
+  };
 
 export const deckSlice = createSlice({
     name: 'deck',
     initialState,
     reducers: {
-    },
-    extraReducers: (builder) => {
-        builder
-        .addCase(addCardToHand, (state, action) => 
-        {
-            
-            state.cards.pop();
-        })
+        lootCardDrawn: (state) => {
+            state.lootDeck.pop();
+        },
+        treasureCardDrawn: (state) => {
+            state.treasureDeck.pop();
+        }
     }
 });
 
-export const selectDeckCards = (state: RootState) => state.deck.cards;
+export const { lootCardDrawn, treasureCardDrawn } = deckSlice.actions;
+
+export const selectDeckCards = (state: RootState) => state.deck.lootDeck;
 
 export const selectTreasureCards = (state: RootState) => state.deck.treasureDeck;
 

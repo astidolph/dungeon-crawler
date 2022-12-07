@@ -1,3 +1,5 @@
+import { CardType } from "../models/Card";
+
 const loot_cards = {
     "cards": [
         {
@@ -9,7 +11,8 @@ const loot_cards = {
                     "payload": 1,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },        
         {
             "id": 1,
@@ -20,7 +23,8 @@ const loot_cards = {
                     "payload": 2,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 2,
@@ -31,7 +35,8 @@ const loot_cards = {
                     "payload": 1,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 3,
@@ -42,7 +47,8 @@ const loot_cards = {
                     "payload": 2,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 4,
@@ -53,7 +59,8 @@ const loot_cards = {
                     "payload": 3,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 5,
@@ -64,7 +71,8 @@ const loot_cards = {
                     "payload": 5,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 6,
@@ -75,7 +83,8 @@ const loot_cards = {
                     "payload": 3,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 7,
@@ -86,7 +95,8 @@ const loot_cards = {
                     "payload": 10,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
         {
             "id": 8,
@@ -97,7 +107,8 @@ const loot_cards = {
                     "payload": 1,
                     "type": "player/gainCoins"
                 }
-            ] 
+            ],
+            type: CardType.Loot
         },
     ]  
 }    

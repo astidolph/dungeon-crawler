@@ -1,3 +1,5 @@
+import { CardType } from "../models/Card";
+
 const treasure_cards = {
     "cards": [
         {
@@ -9,7 +11,8 @@ const treasure_cards = {
                     "payload": 1,
                     "type": "player/gainTotalHP"
                 }
-            ] 
+            ],
+            type: CardType.Treasure
         }
     ]  
 }    

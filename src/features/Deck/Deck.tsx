@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { Card } from '../../models/Card';
-import { addCardToHand } from '../PlayerSlice';
+import { drawCard } from '../Deck/DeckSlice';
 import styles from './Deck.module.css';
 
 interface DeckProps {
@@ -14,7 +14,7 @@ const Deck: FC<DeckProps> = (props) => {
   return (
     <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
         dispatch(
-          addCardToHand(props.cards[props.cards.length - 1])
+          drawCard(props.cards[props.cards.length - 1])
         )
       }}>
       <p>{props.title}</p>
