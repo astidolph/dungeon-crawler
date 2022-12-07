@@ -12,13 +12,10 @@ const CardComponent: FC<CardComponentProps> = (props) => {
   const dispatch = useAppDispatch();
   
   return (
-        <div className={styles.Card}>
-
-        <div className={styles.Card} 
-          onClick={() => dispatch(playCard(props.card))}>
-            <p>{props.card.name}</p>
-            {props.card.description}
-        </div>
+    <div className={styles.Card} 
+      onClick={() => dispatch(playCard(props.card))}>
+        <p>{props.card.name}</p>
+        {props.card.description}
     </div>
   );
 };
