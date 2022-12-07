@@ -1,11 +1,11 @@
-export class Card {
-    id!: number;
-    name: string = '';
+export interface Card {
+    id: number;
+    name: string;
     description?: string;
-    effects: Effect[] = [];
+    effects: Effect[];
 }
 
-export class Effect {
-    payload!: number;
-    type!: string;
+export interface Effect {
+    payload: number;
+    type: string;
 }

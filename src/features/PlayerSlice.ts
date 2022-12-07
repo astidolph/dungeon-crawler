@@ -18,7 +18,7 @@ export const playCard =
   (card: Card): AppThunk =>
   dispatch => {
     card.effects.forEach(effect => {
-        dispatch(gainCoins(1));
+        dispatch(effect);
     });
     dispatch(cardPlayed(card));
   };
