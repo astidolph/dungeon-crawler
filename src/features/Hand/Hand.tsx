@@ -12,7 +12,14 @@ const Hand: FC<HandProps> = () => {
   
   return (
     <div className={styles.Hand}>
-      {hand.map((card: Card) => <div className={styles.Card} onClick={() => dispatch(playCard(card))}>{card.name}</div>)}
+      {
+      hand.map((card: Card) => 
+        <div className={styles.Card} 
+          onClick={() => dispatch(playCard(card))}>
+            <p>{card.name}</p>
+            {card.description}
+        </div>)
+      }
     </div>
   );
 };

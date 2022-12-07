@@ -5,13 +5,21 @@ import { Card } from "../models/Card";
 export interface PlayerState {
     hand: Card[];
     coins: number;
-    lastCardPlayed: Card | null;
+    items: Card[];
+    totalHealth: number;
+    totalDamage: number;
+    currentHealth: number;
+    currentDamage: number;
 }
 
 const initialState: PlayerState = {
     hand: [],
     coins: 0,
-    lastCardPlayed: null
+    items: [],
+    totalHealth: 2,
+    totalDamage: 1,
+    currentHealth: 2,
+    currentDamage: 1
 };
 
 export const playCard =
@@ -34,11 +42,14 @@ export const playerSlice = createSlice({
             }
         },
         cardPlayed: (state, cardToPlay: PayloadAction<Card>) => {
-            state.lastCardPlayed = cardToPlay.payload;
             state.hand = state.hand.filter(card => card.id !== cardToPlay.payload.id);
         },
         gainCoins: (state, addCoins: PayloadAction<number>) => {
             state.coins += addCoins.payload;
+        },
+        gainTotalHP: (state, amount: PayloadAction<number>) => {
+            state.totalHealth += amount.payload;
+            state.currentHealth += amount.payload;
         }
     },
 });
@@ -48,5 +59,11 @@ export const { addCardToHand, cardPlayed, gainCoins } = playerSlice.actions;
 export const selectHand = (state: RootState) => state.player.hand;
 
 export const selectCoins = (state: RootState) => state.player.coins;
+
+export const selectHealth = (state: RootState) => state.player.currentHealth;
+
+export const selectMaxHealth = (state: RootState) => state.player.totalHealth;
+
+export const selectDamage = (state: RootState) => state.player.currentDamage;
 
 export default playerSlice.reducer;

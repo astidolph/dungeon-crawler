@@ -2,7 +2,8 @@ const loot_cards = {
     "cards": [
         {
             "id": 0,
-            "name": "gain 1 coin",
+            "name": "Coins!",
+            "description": "Gain 1 coin",
             "effects": [
                 {
                     "payload": 1,
@@ -12,7 +13,8 @@ const loot_cards = {
         },        
         {
             "id": 1,
-            "name": "gain 2 coins",
+            "name": "Coins!",
+            "description": "Gain 2 coins",
             "effects": [
                 {
                     "payload": 2,
@@ -22,7 +24,8 @@ const loot_cards = {
         },
         {
             "id": 2,
-            "name": "gain 1 coin",
+            "name": "Coins!",
+            "description": "Gain 1 coin",
             "effects": [
                 {
                     "payload": 1,
@@ -32,7 +35,8 @@ const loot_cards = {
         },
         {
             "id": 3,
-            "name": "gain 2 coins",
+            "name": "Coins!",
+            "description": "Gain 2 coins",
             "effects": [
                 {
                     "payload": 2,
@@ -42,7 +46,8 @@ const loot_cards = {
         },
         {
             "id": 4,
-            "name": "gain 3 coins",
+            "name": "Coins!",
+            "description": "Gain 3 coins",
             "effects": [
                 {
                     "payload": 3,
@@ -52,7 +57,8 @@ const loot_cards = {
         },
         {
             "id": 5,
-            "name": "gain 5 coins",
+            "name": "Coins!",
+            "description": "Gain 5 coins",
             "effects": [
                 {
                     "payload": 5,
@@ -62,7 +68,8 @@ const loot_cards = {
         },
         {
             "id": 6,
-            "name": "gain 3 coins",
+            "name": "Coins!",
+            "description": "Gain 3 coins",
             "effects": [
                 {
                     "payload": 3,
@@ -72,7 +79,8 @@ const loot_cards = {
         },
         {
             "id": 7,
-            "name": "gain 10 coins",
+            "name": "Coins!",
+            "description": "Gain 10 coins",
             "effects": [
                 {
                     "payload": 10,
@@ -82,7 +90,8 @@ const loot_cards = {
         },
         {
             "id": 8,
-            "name": "gain 1 coin",
+            "name": "Coins!",
+            "description": "Gain 1 coin",
             "effects": [
                 {
                     "payload": 1,

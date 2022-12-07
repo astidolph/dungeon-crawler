@@ -1,19 +1,24 @@
 import React, { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
+import { Card } from '../../models/Card';
 import { addCardToHand } from '../PlayerSlice';
 import styles from './Deck.module.css';
-import { selectDeckCards } from './DeckSlice';
 
 interface DeckProps {
+  cards: Card[];
+  title: string;
 }
 
-const Deck: FC<DeckProps> = () => {
-  const lootCards = useAppSelector(selectDeckCards);
+const Deck: FC<DeckProps> = (props) => {
   const dispatch = useAppDispatch();
-
   return (
-    <div className={styles.Deck} data-testid="Deck" onClick={(_) => {dispatch(addCardToHand(lootCards[lootCards.length - 1]));}}>
-      {lootCards.length}
+    <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
+        dispatch(
+          addCardToHand(props.cards[props.cards.length - 1])
+        )
+      }}>
+      <p>{props.title}</p>
+      {props.cards.length}
     </div>
   );
 };
