@@ -80,7 +80,8 @@ export const deckSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(addCardToHand, state => 
-            {state.cards.pop()
+        {
+            state.cards.pop();
         })
     }
 });
