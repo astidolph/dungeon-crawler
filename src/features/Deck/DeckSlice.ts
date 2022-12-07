@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { Card } from "../../models/Card";
-import { gainCoins } from "../PlayerSlice";
+import { addCardToHand } from "../PlayerSlice";
 
 export interface DeckState {
     cards: Card[];
@@ -76,13 +76,14 @@ export const deckSlice = createSlice({
     name: 'deck',
     initialState,
     reducers: {
-        draw: (state) => {
-            state.cards.pop();
-        }
+    },
+    extraReducers: (builder) => {
+        builder
+        .addCase(addCardToHand, state => 
+            {state.cards.pop()
+        })
     }
 });
-
-export const { draw } = deckSlice.actions;
 
 export const selectDeckCards = (state: RootState) => state.deck.cards;
 

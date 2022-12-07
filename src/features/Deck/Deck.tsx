@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
-import { addCard } from '../PlayerSlice';
+import { addCardToHand } from '../PlayerSlice';
 import styles from './Deck.module.css';
-import { draw, selectDeckCards } from './DeckSlice';
+import { selectDeckCards } from './DeckSlice';
 
 interface DeckProps {
 }
@@ -13,7 +13,7 @@ const Deck: FC<DeckProps> = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={styles.Deck} data-testid="Deck" onClick={(_) => {dispatch(draw()); dispatch(addCard(lootCards[lootCards.length - 1]));}}>
+    <div className={styles.Deck} data-testid="Deck" onClick={(_) => {dispatch(addCardToHand(lootCards[lootCards.length - 1]));}}>
       {lootCards.map((loot: Card) => <span>{loot.name}</span>)}
     </div>
   );

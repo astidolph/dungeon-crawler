@@ -27,7 +27,7 @@ export const playerSlice = createSlice({
     name: 'player',
     initialState,
     reducers: {
-        addCard: (state, cardToAdd: PayloadAction<Card>) => {
+        addCardToHand: (state, cardToAdd: PayloadAction<Card>) => {
             return {
                 ...state,
                 hand: [cardToAdd.payload, ...state.hand]
@@ -40,10 +40,10 @@ export const playerSlice = createSlice({
         gainCoins: (state, addCoins: PayloadAction<number>) => {
             state.coins += addCoins.payload;
         }
-    }
+    },
 });
 
-export const { addCard, cardPlayed, gainCoins } = playerSlice.actions;
+export const { addCardToHand, cardPlayed, gainCoins } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 
