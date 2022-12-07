@@ -1,6 +1,6 @@
-import { usePatchesInScope } from 'immer/dist/internal';
 import './App.css';
 import { useAppSelector } from './app/hooks';
+import CardComponent from './features/CardComponent/CardComponent';
 import Deck from './features/Deck/Deck';
 import { selectDeckCards, selectTreasureCards } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
@@ -22,7 +22,7 @@ function App() {
       Coins: {coins}
       Health: {health}/{maxHealth}
       Damage: {damage}
-      Items: {items.map(x => x.name + ' ' + x.description)}
+      Items: {items.map(card => <CardComponent card={card}></CardComponent>)}
       <Hand></Hand>
     </div>
   );
