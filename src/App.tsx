@@ -44,9 +44,9 @@ function App() {
         {items.map(card => <CardComponent card={card}></CardComponent>)}
       </div>
       <div className="PlayerStatsContainer">
-        Coins: {coins}
-        Health: {health}/{maxHealth}
-        Damage: {damage}
+        <p>Coins: {coins}</p>
+        <p>Health: {health}/{maxHealth}</p>
+        <p>Damage: {damage}</p>
       </div>
       <div className="HandContainer">
         <Hand></Hand>
