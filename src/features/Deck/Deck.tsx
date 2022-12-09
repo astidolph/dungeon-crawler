@@ -18,7 +18,7 @@ const Deck: FC<DeckProps> = (props) => {
       <div className={styles.DeckContainer}>
         <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
           dispatch(
-            drawCard(props.cards[props.cards.length - 1])
+            drawCard(props.type)
           )
         }}>
           <p>{props.title}</p>

@@ -1,35 +1,39 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import loot_cards from "../../app/loot-cards";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
 import { Card, CardType } from "../../models/Card";
-import { addCardToHand, addItem, cardPlayed, playCard } from "../PlayerSlice";
+import { cardPlayed } from "../PlayerSlice";
 
 export interface DeckState {
     lootDeck: Card[];
-    treasureDeck: Card[];
     lootDiscardPile: Card[];
+    lastLootCardplayed: Card | null;
+    treasureDeck: Card[];
     treasureDiscardPile: Card[];
+    lastTreasureCardPlayed: Card | null;
 }
 
 const initialState: DeckState = {
     lootDeck: loot_cards.cards,
-    treasureDeck: treasure_cards.cards,
     lootDiscardPile: [],
-    treasureDiscardPile: []
+    lastLootCardplayed: null,
+    treasureDeck: treasure_cards.cards,
+    treasureDiscardPile: [],
+    lastTreasureCardPlayed: null
 };
 
 export const drawCard =
-  (card: Card): AppThunk =>
-  dispatch => {
-    switch(card.type) {
+  (deckType: CardType): AppThunk => (dispatch, getState) => {
+    const state = getState();
+    switch(deckType) {
         case CardType.Loot:
-            dispatch(addCardToHand(card));
-            dispatch(lootCardDrawn());
+            let lootDrawn = state.deck.lootDeck[state.deck.lootDeck.length - 1];
+            dispatch(draw(lootDrawn));
             break;
         case CardType.Treasure:
-            dispatch(addItem(card));
-            dispatch(treasureCardDrawn());
+            let treasureDrawn = state.deck.treasureDeck[state.deck.treasureDeck.length -1];
+            dispatch(draw(treasureDrawn));
     }
   };
 
@@ -37,11 +41,15 @@ export const deckSlice = createSlice({
     name: 'deck',
     initialState,
     reducers: {
-        lootCardDrawn: (state) => {
-            state.lootDeck.pop();
-        },
-        treasureCardDrawn: (state) => {
-            state.treasureDeck.pop();
+        draw: (state, action: PayloadAction<Card>) => {
+            switch(action.payload.type) {
+                case CardType.Loot:
+                    state.lootDeck.pop();
+                    break;
+                case CardType.Treasure:
+                    state.treasureDeck.pop();
+                    break;    
+            }
         }
     },
     extraReducers: (builder) => {
@@ -54,7 +62,7 @@ export const deckSlice = createSlice({
     }
 });
 
-export const { lootCardDrawn, treasureCardDrawn } = deckSlice.actions;
+export const { draw } = deckSlice.actions;
 
 export const selectDeck = (state: RootState, type: CardType) => {
     switch(type) {
