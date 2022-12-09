@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
 import { Card, CardType } from "../models/Card";
-import { draw } from "./Deck/DeckSlice";
+import { setCardDrawn } from "./Deck/DeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -49,7 +49,7 @@ export const playerSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(draw, (state, card) => {
+            .addCase(setCardDrawn, (state, card) => {
                 switch(card.payload.type) {
                     case CardType.Loot:
                         return {

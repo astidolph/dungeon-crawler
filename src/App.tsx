@@ -1,13 +1,15 @@
+import { useEffect } from 'react';
 import './App.css';
-import { useAppSelector } from './app/hooks';
+import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import Deck from './features/Deck/Deck';
-import { selectDeck } from './features/Deck/DeckSlice';
+import { drawCard, selectDeck } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
-import { selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
+import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
 import { CardType } from './models/Card';
 
 function App() {
+  const dispatch = useAppDispatch();
   const coins = useAppSelector(selectCoins);
   const health = useAppSelector(selectHealth);
   const maxHealth = useAppSelector(selectMaxHealth);
@@ -15,6 +17,13 @@ function App() {
   const lootDeck = useAppSelector((state) => selectDeck(state, CardType.Loot));
   const treasureDeck = useAppSelector((state) => selectDeck(state, CardType.Treasure));
   const items = useAppSelector(selectItems);
+
+  useEffect(() => {
+    dispatch(drawCard(CardType.Loot));
+    dispatch(drawCard(CardType.Loot));
+    dispatch(drawCard(CardType.Loot));
+    dispatch(gainCoins(3));
+  }, []);
   
   return (
     <div className="App">

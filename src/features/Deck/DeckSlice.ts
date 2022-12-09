@@ -29,11 +29,11 @@ export const drawCard =
     switch(deckType) {
         case CardType.Loot:
             let lootDrawn = state.deck.lootDeck[state.deck.lootDeck.length - 1];
-            dispatch(draw(lootDrawn));
+            dispatch(setCardDrawn(lootDrawn));
             break;
         case CardType.Treasure:
             let treasureDrawn = state.deck.treasureDeck[state.deck.treasureDeck.length -1];
-            dispatch(draw(treasureDrawn));
+            dispatch(setCardDrawn(treasureDrawn));
     }
   };
 
@@ -41,7 +41,7 @@ export const deckSlice = createSlice({
     name: 'deck',
     initialState,
     reducers: {
-        draw: (state, action: PayloadAction<Card>) => {
+        setCardDrawn: (state, action: PayloadAction<Card>) => {
             switch(action.payload.type) {
                 case CardType.Loot:
                     state.lootDeck.pop();
@@ -62,7 +62,7 @@ export const deckSlice = createSlice({
     }
 });
 
-export const { draw } = deckSlice.actions;
+export const { setCardDrawn } = deckSlice.actions;
 
 export const selectDeck = (state: RootState, type: CardType) => {
     switch(type) {
