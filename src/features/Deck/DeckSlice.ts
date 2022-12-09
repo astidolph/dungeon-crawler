@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import loot_cards from "../../app/loot-cards";
+import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
 import { Card, CardType } from "../../models/Card";
@@ -8,19 +9,19 @@ import { cardPlayed } from "../PlayerSlice";
 export interface DeckState {
     lootDeck: Card[];
     lootDiscardPile: Card[];
-    lastLootCardplayed: Card | null;
     treasureDeck: Card[];
     treasureDiscardPile: Card[];
-    lastTreasureCardPlayed: Card | null;
+    monsterDeck: Card[];
+    monsterDiscardPile: Card[];
 }
 
 const initialState: DeckState = {
     lootDeck: loot_cards.cards,
     lootDiscardPile: [],
-    lastLootCardplayed: null,
     treasureDeck: treasure_cards.cards,
     treasureDiscardPile: [],
-    lastTreasureCardPlayed: null
+    monsterDeck: monster_cards.cards,
+    monsterDiscardPile: []
 };
 
 export const drawCard =
@@ -69,7 +70,9 @@ export const selectDeck = (state: RootState, type: CardType) => {
         case CardType.Loot:
             return state.deck.lootDeck;
         case CardType.Treasure:
-            return state.deck.treasureDeck;    
+            return state.deck.treasureDeck;
+        case CardType.Monster:
+            return state.deck.monsterDeck;
     }
 };
 
@@ -78,7 +81,9 @@ export const selectDeckDiscardPile = (state: RootState, type: CardType) => {
         case CardType.Loot:
             return state.deck.lootDiscardPile;
         case CardType.Treasure:
-            return state.deck.treasureDiscardPile    
+            return state.deck.treasureDiscardPile;
+        case CardType.Monster:
+            return state.deck.monsterDeck  
     }
 };
 

@@ -6,7 +6,7 @@ import Deck from './features/Deck/Deck';
 import { drawCard, selectDeck } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
 import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
-import { Card, CardType } from './models/Card';
+import { CardType } from './models/Card';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -16,9 +16,8 @@ function App() {
   const damage = useAppSelector(selectDamage);
   const lootDeck = useAppSelector((state) => selectDeck(state, CardType.Loot));
   const treasureDeck = useAppSelector((state) => selectDeck(state, CardType.Treasure));
+  const monsterDeck = useAppSelector((state) => selectDeck(state, CardType.Monster));
   const items = useAppSelector(selectItems);
-
-  const placeholderMonsterCards: Card[] = [{name: 'fake-monster', id: 0, type: CardType.Loot, effects: []}];
 
   useEffect(() => {
     dispatch(drawCard(CardType.Loot));
@@ -34,7 +33,7 @@ function App() {
         <Deck title="Treasure Deck" cards={treasureDeck} type={CardType.Treasure}></Deck>
       </div>
       <div className="MonsterDeckContainer">
-        <Deck title="Monster Deck" cards={placeholderMonsterCards} type={CardType.Loot}></Deck>
+        <Deck title="Monster Deck" cards={monsterDeck} type={CardType.Loot}></Deck>
       </div>
       <div className="GameBoardContainer"></div>
       <div className="LootDeckContainer">

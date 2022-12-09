@@ -3,7 +3,14 @@ export interface Card {
     name: string;
     description?: string;
     effects: Effect[];
-    type: CardType
+    type: CardType;
+}
+
+export interface MonsterCard extends Card {
+    health: number;
+    damage: number;
+    roll: number;
+    reward: Effect;
 }
 
 export interface Effect {
@@ -13,5 +20,6 @@ export interface Effect {
 
 export enum CardType {
     Loot,
-    Treasure
+    Treasure,
+    Monster
 }
