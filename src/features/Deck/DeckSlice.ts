@@ -4,7 +4,7 @@ import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
 import { Card, CardType } from "../../models/Card";
-import { cardPlayed } from "../PlayerSlice";
+import { cardPlayed, playCard } from "../PlayerSlice";
 
 export interface DeckState {
     lootDeck: Card[];
@@ -35,6 +35,7 @@ export const drawCard =
         case CardType.Treasure:
             let treasureDrawn = state.deck.treasureDeck[state.deck.treasureDeck.length -1];
             dispatch(setCardDrawn(treasureDrawn));
+            dispatch(playCard(treasureDrawn));
     }
   };
 
