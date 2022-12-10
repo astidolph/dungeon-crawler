@@ -16,19 +16,19 @@ const treasure_cards = {
         },
         {
             "id": 1,
-            "name": "Dinner",
-            "description": "+1 HP",
+            "name": "Brimstone",
+            "description": "+1 DMG",
             "effects": [
                 {
                     "payload": 1,
-                    "type": "player/gainTotalHP"
+                    "type": "player/gainTotalDMG"
                 }
             ],
             type: CardType.Treasure
         },        
         {
             "id": 2,
-            "name": "Dinner",
+            "name": "Breakfast",
             "description": "+1 HP",
             "effects": [
                 {

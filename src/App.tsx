@@ -32,14 +32,28 @@ function App() {
     <div className="App">
       <div className="GameTitleContainer"></div>
       <div className="TreasureDeckContainer">
-        <Deck title="Treasure Deck" cards={treasureDeck} type={CardType.Treasure}></Deck>
+        <Deck title="Treasure Deck"
+          cards={treasureDeck} 
+          type={CardType.Treasure} 
+          hasActiveCards
+          drawCardEffect={drawCard(CardType.Treasure)}
+        ></Deck>
       </div>
       <div className="MonsterDeckContainer">
-        <Deck title="Monster Deck" cards={monsterDeck} type={CardType.Monster}></Deck>
+        <Deck title="Monster Deck" 
+          cards={monsterDeck} 
+          type={CardType.Monster} 
+          hasActiveCards
+          drawCardEffect={drawCard(CardType.Monster)}
+        ></Deck>
       </div>
       <div className="GameBoardContainer"></div>
       <div className="LootDeckContainer">
-        <Deck title="Loot Deck" cards={lootDeck} type={CardType.Loot}></Deck>
+        <Deck title="Loot Deck" 
+          cards={lootDeck} 
+          type={CardType.Loot} 
+          drawCardEffect={drawCard(CardType.Loot)}
+        ></Deck>
       </div>
       <div className="ItemContainer">
         {items.map(card => <CardComponent card={card}></CardComponent>)}

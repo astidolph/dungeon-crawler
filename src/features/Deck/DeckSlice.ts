@@ -122,7 +122,7 @@ export const selectDeckDiscardPile = (state: RootState, type: CardType) => {
         case CardType.Treasure:
             return state.deck.treasureDiscardPile;
         case CardType.Monster:
-            return state.deck.monsterDeck  
+            return state.deck.monsterDiscardPile; 
     }
 };
 

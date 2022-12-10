@@ -1,5 +1,7 @@
+import { ThunkAction } from '@reduxjs/toolkit';
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { AppThunk } from '../../app/store';
 import { Card, CardType } from '../../models/Card';
 import CardComponent from '../CardComponent/CardComponent';
 import { drawCard, selectActiveCards, selectDeckDiscardPile } from '../Deck/DeckSlice';
@@ -9,6 +11,9 @@ interface DeckProps {
   cards: Card[];
   title: string;
   type: CardType;
+  drawCardEffect: AppThunk<void>;
+  hasActiveCards?: boolean;
+  activeCardEffect?: AppThunk<void>;
 }
 
 const Deck: FC<DeckProps> = (props) => {
@@ -18,21 +23,18 @@ const Deck: FC<DeckProps> = (props) => {
   return (
       <div className={styles.DeckContainer}>
         <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
-          dispatch(
-            drawCard(props.type)
-          )
+          dispatch(props.drawCardEffect)
         }}>
           <p>{props.title}</p>
           <p>{props.cards.length}</p>
         </div>
         {}
         <div className={styles.ActiveCards}>
-          {activeCards.length > 0 && (props.type === CardType.Treasure || props.type === CardType.Monster) &&
+          {props.hasActiveCards && activeCards.length > 0 &&
           activeCards.map(card => <CardComponent card={card}></CardComponent>)}
         </div>
         <div className={styles.DiscardPile}>
-          {(discardPile.length > 0 && (props.type === CardType.Loot || props.type === CardType.Treasure)) && 
-          <CardComponent card={discardPile[discardPile.length -1]}></CardComponent>}
+          {discardPile.length > 0 && <CardComponent card={discardPile[discardPile.length -1]}></CardComponent>}
         </div>
       </div>
   );
