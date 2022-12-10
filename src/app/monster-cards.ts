@@ -29,6 +29,20 @@ const monster_cards = {
                 "payload": 4,
                 "type": "player/gainCoins"
             }
+        },        
+        {
+            id: 2,
+            name: "Fat Bat",
+            description: "Some description of Fat Bat",
+            effects: [],
+            type: CardType.Monster,
+            health: 3,
+            damage: 1,
+            roll: 5,
+            reward: {
+                "payload": 1,
+                "type": "player/gainTreasure"
+            }
         }
     ]  
 }    
