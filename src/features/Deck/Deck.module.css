@@ -1,4 +1,4 @@
-.DeckContainer {
+.DeckContainer, .ActiveCards {
     display: flex;
 }
 

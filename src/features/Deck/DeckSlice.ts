@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import loot_cards from "../../app/loot-cards";
 import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
@@ -13,6 +13,10 @@ export interface DeckState {
     treasureDiscardPile: Card[];
     monsterDeck: Card[];
     monsterDiscardPile: Card[];
+    activeTreasures: Card[];
+    maxActiveTreasureCards: number;
+    activeMonsterCards: Card[];
+    maxActiveMonsterCards: number;
 }
 
 const initialState: DeckState = {
@@ -21,7 +25,11 @@ const initialState: DeckState = {
     treasureDeck: treasure_cards.cards,
     treasureDiscardPile: [],
     monsterDeck: monster_cards.cards,
-    monsterDiscardPile: []
+    monsterDiscardPile: [],
+    activeTreasures: [],
+    maxActiveTreasureCards: 2,
+    activeMonsterCards: [],
+    maxActiveMonsterCards: 2
 };
 
 export const drawCard =
@@ -52,6 +60,36 @@ export const deckSlice = createSlice({
                     state.treasureDeck.pop();
                     break;    
             }
+        },
+        setActiveCards: (state, action: PayloadAction<CardType>) => {
+            switch(action.payload) {
+                case CardType.Treasure:
+                    const numActiveTreasureCards = state.activeTreasures.length;
+                    const maxActiveTreasureCards = state.maxActiveTreasureCards;
+                    const treasureCardsToAdd = maxActiveTreasureCards - numActiveTreasureCards;
+
+                    if (treasureCardsToAdd > 0) {
+                        for (let i = 0; i < treasureCardsToAdd; i++) {
+                            const drawnCard = state.treasureDeck[state.treasureDeck.length - 1];
+                            state.activeTreasures.push(drawnCard);
+                            state.treasureDeck.pop();
+                        }
+                    }
+                    break;
+                case CardType.Monster:
+                    const numActiveMonsterCards = state.activeMonsterCards.length;
+                    const maxActiveMonsterCards = state.maxActiveMonsterCards;
+                    const monsterCardsToAdd = maxActiveMonsterCards - numActiveMonsterCards;
+
+                    if (monsterCardsToAdd > 0) {
+                        for (let i = 0; i < monsterCardsToAdd; i++) {
+                            const drawnCard = state.monsterDeck[state.monsterDeck.length - 1];
+                            state.activeMonsterCards.push(drawnCard);
+                            state.monsterDeck.pop();
+                        }
+                    }
+                    break;   
+            }
         }
     },
     extraReducers: (builder) => {
@@ -64,7 +102,7 @@ export const deckSlice = createSlice({
     }
 });
 
-export const { setCardDrawn } = deckSlice.actions;
+export const { setCardDrawn, setActiveCards } = deckSlice.actions;
 
 export const selectDeck = (state: RootState, type: CardType) => {
     switch(type) {
@@ -87,5 +125,16 @@ export const selectDeckDiscardPile = (state: RootState, type: CardType) => {
             return state.deck.monsterDeck  
     }
 };
+
+export const selectActiveCards = (state: RootState, type: CardType) => {
+        switch(type) {
+        case CardType.Loot:
+            return [];
+        case CardType.Treasure:
+            return state.deck.activeTreasures;
+        case CardType.Monster:
+            return state.deck.activeMonsterCards;  
+    }
+}
 
 export default deckSlice.reducer;
