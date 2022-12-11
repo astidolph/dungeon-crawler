@@ -3,7 +3,9 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import Deck from './features/Deck/Deck';
-import { drawCard, selectDeck, setActiveCards } from './features/Deck/DeckSlice';
+import { drawCard, selectDeck, selectLootDeckActiveCards, selectLootDeckDiscardPile, selectMonsterDeckActiveCards, 
+  selectMonsterDeckDiscardPile, selectTreasureDeckActiveCards, 
+  selectTreasureDeckDiscardPile, setActiveCards } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
 import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
 import { CardType } from './models/Card';
@@ -35,16 +37,18 @@ function App() {
         <Deck title="Treasure Deck"
           cards={treasureDeck} 
           type={CardType.Treasure} 
-          hasActiveCards
           drawCardEffect={drawCard(CardType.Treasure)}
+          discardPileSelector={selectTreasureDeckDiscardPile}
+          activeCardsSelector={selectTreasureDeckActiveCards}
         ></Deck>
       </div>
       <div className="MonsterDeckContainer">
         <Deck title="Monster Deck" 
           cards={monsterDeck} 
           type={CardType.Monster} 
-          hasActiveCards
           drawCardEffect={drawCard(CardType.Monster)}
+          discardPileSelector={selectMonsterDeckDiscardPile}
+          activeCardsSelector={selectMonsterDeckActiveCards}
         ></Deck>
       </div>
       <div className="GameBoardContainer"></div>
@@ -53,6 +57,8 @@ function App() {
           cards={lootDeck} 
           type={CardType.Loot} 
           drawCardEffect={drawCard(CardType.Loot)}
+          discardPileSelector={selectLootDeckDiscardPile}
+          activeCardsSelector={selectLootDeckActiveCards}
         ></Deck>
       </div>
       <div className="ItemContainer">

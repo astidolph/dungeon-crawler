@@ -13,7 +13,7 @@ export interface DeckState {
     treasureDiscardPile: Card[];
     monsterDeck: Card[];
     monsterDiscardPile: Card[];
-    activeTreasures: Card[];
+    activeTreasureCards: Card[];
     maxActiveTreasureCards: number;
     activeMonsterCards: Card[];
     maxActiveMonsterCards: number;
@@ -26,7 +26,7 @@ const initialState: DeckState = {
     treasureDiscardPile: [],
     monsterDeck: monster_cards.cards,
     monsterDiscardPile: [],
-    activeTreasures: [],
+    activeTreasureCards: [],
     maxActiveTreasureCards: 2,
     activeMonsterCards: [],
     maxActiveMonsterCards: 2
@@ -64,14 +64,14 @@ export const deckSlice = createSlice({
         setActiveCards: (state, action: PayloadAction<CardType>) => {
             switch(action.payload) {
                 case CardType.Treasure:
-                    const numActiveTreasureCards = state.activeTreasures.length;
+                    const numActiveTreasureCards = state.activeTreasureCards.length;
                     const maxActiveTreasureCards = state.maxActiveTreasureCards;
                     const treasureCardsToAdd = maxActiveTreasureCards - numActiveTreasureCards;
 
                     if (treasureCardsToAdd > 0) {
                         for (let i = 0; i < treasureCardsToAdd; i++) {
                             const drawnCard = state.treasureDeck[state.treasureDeck.length - 1];
-                            state.activeTreasures.push(drawnCard);
+                            state.activeTreasureCards.push(drawnCard);
                             state.treasureDeck.pop();
                         }
                     }
@@ -115,26 +115,13 @@ export const selectDeck = (state: RootState, type: CardType) => {
     }
 };
 
-export const selectDeckDiscardPile = (state: RootState, type: CardType) => {
-    switch(type) {
-        case CardType.Loot:
-            return state.deck.lootDiscardPile;
-        case CardType.Treasure:
-            return state.deck.treasureDiscardPile;
-        case CardType.Monster:
-            return state.deck.monsterDiscardPile; 
-    }
-};
+export const selectTreasureDeckDiscardPile = (state: RootState) => state.deck.treasureDiscardPile;
+export const selectLootDeckDiscardPile = (state: RootState) => state.deck.lootDiscardPile;
+export const selectMonsterDeckDiscardPile = (state: RootState) => state.deck.monsterDiscardPile;
 
-export const selectActiveCards = (state: RootState, type: CardType) => {
-        switch(type) {
-        case CardType.Loot:
-            return [];
-        case CardType.Treasure:
-            return state.deck.activeTreasures;
-        case CardType.Monster:
-            return state.deck.activeMonsterCards;  
-    }
-}
+export const selectTreasureDeckActiveCards = (state: RootState) => state.deck.activeTreasureCards;
+export const selectMonsterDeckActiveCards = (state: RootState) => state.deck.activeMonsterCards;
+// TODO: Try to get rid of this line, can't have a conditional hook defined in deck component
+export const selectLootDeckActiveCards = (state: RootState) => [];
 
 export default deckSlice.reducer;
