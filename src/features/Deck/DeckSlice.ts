@@ -104,16 +104,9 @@ export const deckSlice = createSlice({
 
 export const { setCardDrawn, setActiveCards } = deckSlice.actions;
 
-export const selectDeck = (state: RootState, type: CardType) => {
-    switch(type) {
-        case CardType.Loot:
-            return state.deck.lootDeck;
-        case CardType.Treasure:
-            return state.deck.treasureDeck;
-        case CardType.Monster:
-            return state.deck.monsterDeck;
-    }
-};
+export const selectLootDeck = (state: RootState) => state.deck.lootDeck;
+export const selectTreasureDeck = (state: RootState) => state.deck.treasureDeck;
+export const selectMonsterDeck = (state: RootState) => state.deck.monsterDeck;
 
 export const selectTreasureDeckDiscardPile = (state: RootState) => state.deck.treasureDiscardPile;
 export const selectLootDeckDiscardPile = (state: RootState) => state.deck.lootDiscardPile;

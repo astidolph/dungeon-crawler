@@ -3,8 +3,8 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import Deck from './features/Deck/Deck';
-import { drawCard, selectDeck, selectLootDeckActiveCards, selectLootDeckDiscardPile, selectMonsterDeckActiveCards, 
-  selectMonsterDeckDiscardPile, selectTreasureDeckActiveCards, 
+import { drawCard, selectLootDeck, selectLootDeckActiveCards, selectLootDeckDiscardPile, selectMonsterDeck, selectMonsterDeckActiveCards, 
+  selectMonsterDeckDiscardPile, selectTreasureDeck, selectTreasureDeckActiveCards, 
   selectTreasureDeckDiscardPile, setActiveCards } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
 import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
@@ -16,9 +16,9 @@ function App() {
   const health = useAppSelector(selectHealth);
   const maxHealth = useAppSelector(selectMaxHealth);
   const damage = useAppSelector(selectDamage);
-  const lootDeck = useAppSelector((state) => selectDeck(state, CardType.Loot));
-  const treasureDeck = useAppSelector((state) => selectDeck(state, CardType.Treasure));
-  const monsterDeck = useAppSelector((state) => selectDeck(state, CardType.Monster));
+  const lootDeck = useAppSelector(selectLootDeck);
+  const treasureDeck = useAppSelector(selectTreasureDeck);
+  const monsterDeck = useAppSelector(selectMonsterDeck);
   const items = useAppSelector(selectItems);
 
   useEffect(() => {
@@ -36,7 +36,6 @@ function App() {
       <div className="TreasureDeckContainer">
         <Deck title="Treasure Deck"
           cards={treasureDeck} 
-          type={CardType.Treasure} 
           drawCardEffect={drawCard(CardType.Treasure)}
           discardPileSelector={selectTreasureDeckDiscardPile}
           activeCardsSelector={selectTreasureDeckActiveCards}
@@ -45,7 +44,6 @@ function App() {
       <div className="MonsterDeckContainer">
         <Deck title="Monster Deck" 
           cards={monsterDeck} 
-          type={CardType.Monster} 
           drawCardEffect={drawCard(CardType.Monster)}
           discardPileSelector={selectMonsterDeckDiscardPile}
           activeCardsSelector={selectMonsterDeckActiveCards}
@@ -54,8 +52,7 @@ function App() {
       <div className="GameBoardContainer"></div>
       <div className="LootDeckContainer">
         <Deck title="Loot Deck" 
-          cards={lootDeck} 
-          type={CardType.Loot} 
+          cards={lootDeck}
           drawCardEffect={drawCard(CardType.Loot)}
           discardPileSelector={selectLootDeckDiscardPile}
           activeCardsSelector={selectLootDeckActiveCards}

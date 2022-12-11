@@ -8,7 +8,6 @@ import styles from './Deck.module.css';
 interface DeckProps {
   cards: Card[];
   title: string;
-  type: CardType;
   drawCardEffect: AppThunk<void>;
   activeCardEffect?: AppThunk<void>;
   activeCardsSelector: AppSelector<Card[]>;
