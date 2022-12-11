@@ -3,13 +3,11 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import Deck from './features/Deck/Deck';
-import { drawLootCard, drawMonsterCard, drawTreasureCard, selectLootDeck, selectLootDeckActiveCards, 
-  selectLootDeckDiscardPile, selectMonsterDeck, selectMonsterDeckActiveCards, 
-  selectMonsterDeckDiscardPile, selectTreasureDeck, selectTreasureDeckActiveCards, 
-  selectTreasureDeckDiscardPile, setActiveCards } from './features/Deck/DeckSlice';
+import { drawLootCard, selectLootDeck, selectLootDeckActiveCards, selectLootDeckDiscardPile } from './features/Deck/LootDeckSlice';
+import { drawMonsterCard, selectMonsterDeck, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile, setActiveMonsterCards } from './features/Deck/MonsterDeckSlice';
+import { drawTreasureCard, selectTreasureDeck, selectTreasureDeckActiveCards, selectTreasureDeckDiscardPile, setActiveTreasureCards } from './features/Deck/TreasureDeckSlice';
 import Hand from './features/Hand/Hand';
 import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
-import { CardType } from './models/Card';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,8 +25,8 @@ function App() {
     dispatch(drawLootCard());
     dispatch(drawLootCard());
     dispatch(gainCoins(3));
-    dispatch(setActiveCards(CardType.Treasure));
-    dispatch(setActiveCards(CardType.Monster));
+    dispatch(setActiveTreasureCards());
+    dispatch(setActiveMonsterCards());
   }, []);
   
   return (

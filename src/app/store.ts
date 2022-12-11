@@ -1,11 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import deckReducer from '../features/Deck/DeckSlice';
 import playerReducer from '../features/PlayerSlice';
+import lootDeckReducer from '../features/Deck/LootDeckSlice';
+import treasureDeckReducer from '../features/Deck/TreasureDeckSlice';
+import monsterDeckReducer from '../features/Deck/MonsterDeckSlice';
 
 export const store = configureStore({
   reducer: {
-    deck: deckReducer,
-    player: playerReducer
+    player: playerReducer,
+    lootDeck: lootDeckReducer,
+    treasureDeck: treasureDeckReducer,
+    monsterDeck: monsterDeckReducer
   },
 });
 

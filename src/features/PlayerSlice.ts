@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
-import { Card, CardType } from "../models/Card";
-import { setCardDrawn } from "./Deck/DeckSlice";
+import { Card } from "../models/Card";
+import { setLootCardDrawn } from "./Deck/LootDeckSlice";
+import { setTreasureCardDrawn } from "./Deck/TreasureDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -49,19 +50,17 @@ export const playerSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(setCardDrawn, (state, card) => {
-                switch(card.payload.type) {
-                    case CardType.Loot:
-                        return {
-                            ...state,
-                            hand: [card.payload, ...state.hand]
-                        }
-                    case CardType.Treasure:
-                        return {
-                            ...state,
-                            items: [card.payload, ...state.items]
-                        }
-                    }
+            .addCase(setLootCardDrawn, (state, card) => {
+                return {
+                    ...state,
+                    hand: [card.payload, ...state.hand]
+                }
+            })
+            .addCase(setTreasureCardDrawn, (state, card) => {
+                return {
+                    ...state,
+                    items: [card.payload, ...state.items]
+                }
             })
     }
 });
