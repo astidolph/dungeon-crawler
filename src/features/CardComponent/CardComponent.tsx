@@ -3,10 +3,11 @@ import styles from './CardComponent.module.css';
 import { Card, Effect } from '../../models/Card';
 import { useAppDispatch } from '../../app/hooks';
 import { AppThunk } from '../../app/store';
+import { Action } from '@reduxjs/toolkit';
 
 interface CardComponentProps {
   card: Card;
-  effect?: AppThunk<void>;
+  effect?: AppThunk<void> | Action;
 }
 
 const CardComponent: FC<CardComponentProps> = (props) => {

@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
-import Deck from './features/Deck/Deck';
-import { drawLootCard, selectLootDeck, selectLootDeckActiveCards, selectLootDeckDiscardPile } from './features/Deck/LootDeckSlice';
-import { drawMonsterCard, selectMonsterDeck, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile, setActiveMonsterCards } from './features/Deck/MonsterDeckSlice';
-import { drawTreasureCard, selectTreasureDeck, selectTreasureDeckActiveCards, selectTreasureDeckDiscardPile, setActiveTreasureCards } from './features/Deck/TreasureDeckSlice';
+import { drawLootCard, selectLootDeck, } from './features/LootDeck/LootDeckSlice';
+import { selectMonsterDeck, setActiveMonsterCards } from './features/MonsterDeck/MonsterDeckSlice';
+import { selectTreasureDeck, setActiveTreasureCards } from './features/TreasureDeck/TreasureDeckSlice';
 import Hand from './features/Hand/Hand';
+import LootDeck from './features/LootDeck/LootDeck';
+import MonsterDeck from './features/MonsterDeck/MonsterDeck';
 import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
+import TreasureDeck from './features/TreasureDeck/TreasureDeck';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,29 +35,14 @@ function App() {
     <div className="App">
       <div className="GameTitleContainer"></div>
       <div className="TreasureDeckContainer">
-        <Deck title="Treasure Deck"
-          cards={treasureDeck} 
-          drawCardEffect={drawTreasureCard()}
-          discardPileSelector={selectTreasureDeckDiscardPile}
-          activeCardsSelector={selectTreasureDeckActiveCards}
-        ></Deck>
+        <TreasureDeck title='Treasure Deck' cards={treasureDeck}></TreasureDeck>
       </div>
       <div className="MonsterDeckContainer">
-        <Deck title="Monster Deck" 
-          cards={monsterDeck} 
-          drawCardEffect={drawMonsterCard()}
-          discardPileSelector={selectMonsterDeckDiscardPile}
-          activeCardsSelector={selectMonsterDeckActiveCards}
-        ></Deck>
+        <MonsterDeck title='Monster Deck' cards={monsterDeck}></MonsterDeck>
       </div>
       <div className="GameBoardContainer"></div>
       <div className="LootDeckContainer">
-        <Deck title="Loot Deck" 
-          cards={lootDeck}
-          drawCardEffect={drawLootCard()}
-          discardPileSelector={selectLootDeckDiscardPile}
-          activeCardsSelector={selectLootDeckActiveCards}
-        ></Deck>
+        <LootDeck title="Loot Deck" cards={lootDeck}></LootDeck>
       </div>
       <div className="ItemContainer">
         {items.map(card => <CardComponent card={card}></CardComponent>)}

@@ -1,8 +1,8 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import playerReducer from '../features/PlayerSlice';
-import lootDeckReducer from '../features/Deck/LootDeckSlice';
-import treasureDeckReducer from '../features/Deck/TreasureDeckSlice';
-import monsterDeckReducer from '../features/Deck/MonsterDeckSlice';
+import lootDeckReducer from '../features/LootDeck/LootDeckSlice';
+import treasureDeckReducer from '../features/TreasureDeck/TreasureDeckSlice';
+import monsterDeckReducer from '../features/MonsterDeck/MonsterDeckSlice';
 
 export const store = configureStore({
   reducer: {

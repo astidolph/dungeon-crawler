@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
 import { Card } from "../models/Card";
-import { setLootCardDrawn } from "./Deck/LootDeckSlice";
-import { setTreasureCardDrawn } from "./Deck/TreasureDeckSlice";
+import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
+import { setTreasureCardDrawn } from "./TreasureDeck/TreasureDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -46,6 +46,12 @@ export const playerSlice = createSlice({
         gainTotalHP: (state, amount: PayloadAction<number>) => {
             state.totalHealth += amount.payload;
             state.currentHealth += amount.payload;
+        },
+        buyTreasureCard: (state, action: PayloadAction<Card>) => {
+            if (state.coins > 10) {
+                state.items.push(action.payload);
+                state.coins -= 10;
+            }
         }
     },
     extraReducers: (builder) => {
@@ -65,7 +71,7 @@ export const playerSlice = createSlice({
     }
 });
 
-export const { cardPlayed, gainCoins } = playerSlice.actions;
+export const { cardPlayed, gainCoins, buyTreasureCard } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 

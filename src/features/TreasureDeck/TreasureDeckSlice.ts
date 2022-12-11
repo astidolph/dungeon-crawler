@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
-import { Card, CardType } from "../../models/Card";
-import { cardPlayed, playCard } from "../PlayerSlice";
+import { Card } from "../../models/Card";
+import { playCard } from "../PlayerSlice";
 
 export interface TreasureDeckState {
     treasureDeck: Card[];

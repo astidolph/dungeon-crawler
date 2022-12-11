@@ -1,33 +1,29 @@
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { AppSelector, AppThunk } from '../../app/store';
 import { Card } from '../../models/Card';
 import CardComponent from '../CardComponent/CardComponent';
-import styles from './Deck.module.css';
+import { drawMonsterCard, selectMonsterDeck, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile } from './MonsterDeckSlice';
+import styles from './MonsterDeck.module.css';
 
-interface DeckProps {
-  cards: Card[];
+interface MonsterDeckProps {
   title: string;
-  drawCardEffect: AppThunk<void>;
-  activeCardEffect?: AppThunk<void>;
-  activeCardsSelector: AppSelector<Card[]>;
-  discardPileSelector: AppSelector<Card[]>;
+  cards: Card[];
 }
 
-const Deck: FC<DeckProps> = (props) => {
+const MonsterDeck: FC<MonsterDeckProps> = (props) => {
   const dispatch = useAppDispatch();
-  const discardPile = useAppSelector(props.discardPileSelector);
-  const activeCards = useAppSelector(props.activeCardsSelector);
+  const discardPile = useAppSelector(selectMonsterDeckDiscardPile);
+  const activeCards = useAppSelector(selectMonsterDeckActiveCards);
   return (
       <div className={styles.DeckContainer}>
         <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
-          dispatch(props.drawCardEffect)
+          dispatch(drawMonsterCard())
         }}>
           <p>{props.title}</p>
           <p>{props.cards.length}</p>
         </div>
         {
-          props.activeCardsSelector !== undefined && 
+          activeCards.length > 0 && 
           <div className={styles.ActiveCards}>
             {activeCards.map(card => <CardComponent card={card}></CardComponent>)}
           </div>
@@ -39,4 +35,4 @@ const Deck: FC<DeckProps> = (props) => {
   );
 };
 
-export default Deck;
+export default MonsterDeck;
