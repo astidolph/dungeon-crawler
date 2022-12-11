@@ -32,20 +32,22 @@ const initialState: DeckState = {
     maxActiveMonsterCards: 2
 };
 
-export const drawCard =
-  (deckType: CardType): AppThunk => (dispatch, getState) => {
+export const drawLootCard = (): AppThunk => (dispatch, getState) => {
     const state = getState();
-    switch(deckType) {
-        case CardType.Loot:
-            let lootDrawn = state.deck.lootDeck[state.deck.lootDeck.length - 1];
-            dispatch(setCardDrawn(lootDrawn));
-            break;
-        case CardType.Treasure:
-            let treasureDrawn = state.deck.treasureDeck[state.deck.treasureDeck.length -1];
-            dispatch(setCardDrawn(treasureDrawn));
-            dispatch(playCard(treasureDrawn));
-    }
-  };
+    let lootDrawn = state.deck.lootDeck[state.deck.lootDeck.length - 1];
+    dispatch(setCardDrawn(lootDrawn));
+};
+
+export const drawTreasureCard = (): AppThunk => (dispatch, getState) => {
+    const state = getState();
+    let treasureDrawn = state.deck.treasureDeck[state.deck.treasureDeck.length -1];
+    dispatch(setCardDrawn(treasureDrawn));
+    dispatch(playCard(treasureDrawn));
+};
+
+export const drawMonsterCard = (): AppThunk => (dispatch, getState) => {
+    // TO IMPLEMENT
+};
 
 export const deckSlice = createSlice({
     name: 'deck',

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { AppSelector, AppThunk } from '../../app/store';
-import { Card, CardType } from '../../models/Card';
+import { Card } from '../../models/Card';
 import CardComponent from '../CardComponent/CardComponent';
 import styles from './Deck.module.css';
 

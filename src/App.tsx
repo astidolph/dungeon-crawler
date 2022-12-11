@@ -3,7 +3,8 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import Deck from './features/Deck/Deck';
-import { drawCard, selectLootDeck, selectLootDeckActiveCards, selectLootDeckDiscardPile, selectMonsterDeck, selectMonsterDeckActiveCards, 
+import { drawLootCard, drawMonsterCard, drawTreasureCard, selectLootDeck, selectLootDeckActiveCards, 
+  selectLootDeckDiscardPile, selectMonsterDeck, selectMonsterDeckActiveCards, 
   selectMonsterDeckDiscardPile, selectTreasureDeck, selectTreasureDeckActiveCards, 
   selectTreasureDeckDiscardPile, setActiveCards } from './features/Deck/DeckSlice';
 import Hand from './features/Hand/Hand';
@@ -22,9 +23,9 @@ function App() {
   const items = useAppSelector(selectItems);
 
   useEffect(() => {
-    dispatch(drawCard(CardType.Loot));
-    dispatch(drawCard(CardType.Loot));
-    dispatch(drawCard(CardType.Loot));
+    dispatch(drawLootCard());
+    dispatch(drawLootCard());
+    dispatch(drawLootCard());
     dispatch(gainCoins(3));
     dispatch(setActiveCards(CardType.Treasure));
     dispatch(setActiveCards(CardType.Monster));
@@ -36,7 +37,7 @@ function App() {
       <div className="TreasureDeckContainer">
         <Deck title="Treasure Deck"
           cards={treasureDeck} 
-          drawCardEffect={drawCard(CardType.Treasure)}
+          drawCardEffect={drawTreasureCard()}
           discardPileSelector={selectTreasureDeckDiscardPile}
           activeCardsSelector={selectTreasureDeckActiveCards}
         ></Deck>
@@ -44,7 +45,7 @@ function App() {
       <div className="MonsterDeckContainer">
         <Deck title="Monster Deck" 
           cards={monsterDeck} 
-          drawCardEffect={drawCard(CardType.Monster)}
+          drawCardEffect={drawMonsterCard()}
           discardPileSelector={selectMonsterDeckDiscardPile}
           activeCardsSelector={selectMonsterDeckActiveCards}
         ></Deck>
@@ -53,7 +54,7 @@ function App() {
       <div className="LootDeckContainer">
         <Deck title="Loot Deck" 
           cards={lootDeck}
-          drawCardEffect={drawCard(CardType.Loot)}
+          drawCardEffect={drawLootCard()}
           discardPileSelector={selectLootDeckDiscardPile}
           activeCardsSelector={selectLootDeckActiveCards}
         ></Deck>
