@@ -39,9 +39,6 @@ export const treasureDeckSlice = createSlice({
     name: 'treasureDeck',
     initialState,
     reducers: {
-        setTreasureCardDrawn: (state, action: PayloadAction<Card>) => {
-            state.treasureDeck.pop();
-        },
         setActiveTreasureCards: (state) => {
             const numActiveTreasureCards = state.activeTreasureCards.length;
             const maxActiveTreasureCards = state.maxActiveTreasureCards;
@@ -67,7 +64,7 @@ export const treasureDeckSlice = createSlice({
     }
 });
 
-export const { setActiveTreasureCards, setTreasureCardDrawn } = treasureDeckSlice.actions;
+export const { setActiveTreasureCards } = treasureDeckSlice.actions;
 
 export const selectTreasureDeck = (state: RootState) => state.treasureDeck.treasureDeck;
 

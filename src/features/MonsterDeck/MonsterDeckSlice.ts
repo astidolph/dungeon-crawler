@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
-import { Card, CardType } from "../../models/Card";
+import { Card } from "../../models/Card";
 
 export interface DeckState {
     monsterDeck: Card[];
