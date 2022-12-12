@@ -30,7 +30,7 @@ export const monsterDeckSlice = createSlice({
             const maxActiveMonsterCards = state.maxActiveMonsterCards;
             const monsterCardsToAdd = maxActiveMonsterCards - numActiveMonsterCards;
 
-            if (monsterCardsToAdd > 0) {
+            if (state.monsterDeck.length > 0 && monsterCardsToAdd > 0) {
                 for (let i = 0; i < monsterCardsToAdd; i++) {
                     const drawnCard = state.monsterDeck[state.monsterDeck.length - 1];
                     state.activeMonsterCards.push(drawnCard);

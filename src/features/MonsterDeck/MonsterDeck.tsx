@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
 import CardComponent from '../CardComponent/CardComponent';
-import { drawMonsterCard, selectMonsterDeck, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile } from './MonsterDeckSlice';
+import { drawMonsterCard, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile } from './MonsterDeckSlice';
 import styles from './MonsterDeck.module.css';
 
 interface MonsterDeckProps {

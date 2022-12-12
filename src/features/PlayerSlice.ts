@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
 import { Card } from "../models/Card";
 import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
-import { setTreasureCardDrawn } from "./TreasureDeck/TreasureDeckSlice";
+import { setActiveTreasureCards, setTreasureCardDrawn } from "./TreasureDeck/TreasureDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -33,6 +33,23 @@ export const playCard =
     dispatch(cardPlayed(card));
   };
 
+export const tryBuyTopTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
+    const state = getState();
+    if (state.player.coins > 10) {
+        dispatch(buyTopTreasureCard(card));
+        dispatch(playCard(card));
+    }
+};
+
+export const tryBuyActiveTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
+    const state = getState();
+    if (state.player.coins > 10) {
+        dispatch(buyActiveTreasureCard(card));
+        dispatch(playCard(card));
+        dispatch(setActiveTreasureCards());
+    }
+};
+
 export const playerSlice = createSlice({
     name: 'player',
     initialState,
@@ -47,7 +64,13 @@ export const playerSlice = createSlice({
             state.totalHealth += amount.payload;
             state.currentHealth += amount.payload;
         },
-        buyTreasureCard: (state, action: PayloadAction<Card>) => {
+        buyTopTreasureCard: (state, action: PayloadAction<Card>) => {
+            if (state.coins > 10) {
+                state.items.push(action.payload);
+                state.coins -= 10;
+            }
+        },        
+        buyActiveTreasureCard: (state, action: PayloadAction<Card>) => {
             if (state.coins > 10) {
                 state.items.push(action.payload);
                 state.coins -= 10;
@@ -71,7 +94,7 @@ export const playerSlice = createSlice({
     }
 });
 
-export const { cardPlayed, gainCoins, buyTreasureCard } = playerSlice.actions;
+export const { cardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 

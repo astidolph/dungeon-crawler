@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
 import { Card } from "../../models/Card";
-import { playCard } from "../PlayerSlice";
+import { buyActiveTreasureCard, buyTopTreasureCard, playCard } from "../PlayerSlice";
 
 export interface TreasureDeckState {
     treasureDeck: Card[];
@@ -37,14 +37,23 @@ export const treasureDeckSlice = createSlice({
             const maxActiveTreasureCards = state.maxActiveTreasureCards;
             const treasureCardsToAdd = maxActiveTreasureCards - numActiveTreasureCards;
 
-            if (treasureCardsToAdd > 0) {
+            if (state.treasureDeck.length > 0 && treasureCardsToAdd > 0) {
                 for (let i = 0; i < treasureCardsToAdd; i++) {
                     const drawnCard = state.treasureDeck[state.treasureDeck.length - 1];
                     state.activeTreasureCards.push(drawnCard);
                     state.treasureDeck.pop();
                 }
             }
-        }
+        } 
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(buyActiveTreasureCard, (state, action) => {
+                state.activeTreasureCards = state.activeTreasureCards.filter(card => card.id !== action.payload.id);
+            })
+            .addCase(buyTopTreasureCard, (state, action) => {
+                state.treasureDeck.pop();
+            })
     }
 });
 

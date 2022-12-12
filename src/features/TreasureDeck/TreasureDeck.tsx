@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
 import CardComponent from '../CardComponent/CardComponent';
-import { drawTreasureCard, selectTreasureDeck, selectTreasureDeckActiveCards, selectTreasureDeckDiscardPile } from './TreasureDeckSlice';
-import { buyTreasureCard } from '../PlayerSlice';
+import { selectTreasureDeckActiveCards, selectTreasureDeckDiscardPile } from './TreasureDeckSlice';
+import { tryBuyActiveTreasureCard, tryBuyTopTreasureCard } from '../PlayerSlice';
 import styles from './TreasureDeck.module.css';
 
 interface TreasureDeckProps {
@@ -18,7 +18,7 @@ const TreasureDeck: FC<TreasureDeckProps> = (props) => {
   return (
       <div className={styles.DeckContainer}>
         <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
-          dispatch(drawTreasureCard())
+          dispatch(tryBuyTopTreasureCard(props.cards[props.cards.length - 1]))
         }}>
           <p>{props.title}</p>
           <p>{props.cards.length}</p>
@@ -26,7 +26,7 @@ const TreasureDeck: FC<TreasureDeckProps> = (props) => {
         {
           activeCards.length > 0 && 
           <div className={styles.ActiveCards}>
-            {activeCards.map(card => <CardComponent card={card} effect={buyTreasureCard(card)}></CardComponent>)}
+            {activeCards.map(card => <CardComponent card={card} effect={tryBuyActiveTreasureCard(card)}></CardComponent>)}
           </div>
         }
         <div className={styles.DiscardPile}>
