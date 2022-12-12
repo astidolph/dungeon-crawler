@@ -12,6 +12,10 @@ export interface PlayerState {
     totalDamage: number;
     currentHealth: number;
     currentDamage: number;
+    maxNumberLootCardsToPlay: number;
+    numberLootCardsPlayed: number;
+    maxNumberTreasureCardPurchases: number;
+    numberTreasureCardsBought: number;
 }
 
 const initialState: PlayerState = {
@@ -21,41 +25,28 @@ const initialState: PlayerState = {
     totalHealth: 2,
     totalDamage: 1,
     currentHealth: 2,
-    currentDamage: 1
+    currentDamage: 1,
+    maxNumberLootCardsToPlay: 1,
+    numberLootCardsPlayed: 0,
+    maxNumberTreasureCardPurchases: 1,
+    numberTreasureCardsBought: 0
 };
 
-export const playCard =
+export const playCardEffects =
   (card: Card): AppThunk =>
   dispatch => {
     card.effects.forEach(effect => {
         dispatch(effect);
     });
-    dispatch(cardPlayed(card));
   };
-
-export const tryBuyTopTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
-    const state = getState();
-    if (state.player.coins > 10) {
-        dispatch(buyTopTreasureCard(card));
-        dispatch(playCard(card));
-    }
-};
-
-export const tryBuyActiveTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
-    const state = getState();
-    if (state.player.coins > 10) {
-        dispatch(buyActiveTreasureCard(card));
-        dispatch(playCard(card));
-        dispatch(setActiveTreasureCards());
-    }
-};
 
 export const playerSlice = createSlice({
     name: 'player',
     initialState,
     reducers: {
-        cardPlayed: (state, cardToPlay: PayloadAction<Card>) => {
+        lootCardPlayed: (state, cardToPlay: PayloadAction<Card>) => {
             state.hand = state.hand.filter(card => card.id !== cardToPlay.payload.id);
+            state.numberLootCardsPlayed += 1;
         },
         gainCoins: (state, addCoins: PayloadAction<number>) => {
             state.coins += addCoins.payload;
@@ -64,16 +55,22 @@ export const playerSlice = createSlice({
             state.totalHealth += amount.payload;
             state.currentHealth += amount.payload;
         },
+        gainTotalDMG: (state, amount: PayloadAction<number>) => {
+            state.totalDamage += amount.payload;
+            state.currentDamage += amount.payload;
+        },
         buyTopTreasureCard: (state, action: PayloadAction<Card>) => {
             if (state.coins > 10) {
                 state.items.push(action.payload);
                 state.coins -= 10;
+                state.numberTreasureCardsBought += 1;
             }
         },        
         buyActiveTreasureCard: (state, action: PayloadAction<Card>) => {
             if (state.coins > 10) {
                 state.items.push(action.payload);
                 state.coins -= 10;
+                state.numberTreasureCardsBought += 1;
             }
         }
     },
@@ -94,7 +91,7 @@ export const playerSlice = createSlice({
     }
 });
 
-export const { cardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard } = playerSlice.actions;
+export const { lootCardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 

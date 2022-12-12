@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import loot_cards from "../../app/loot-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { Card, CardType } from "../../models/Card";
-import { cardPlayed } from "../PlayerSlice";
+import { lootCardPlayed, playCardEffects } from "../PlayerSlice";
 
 export interface LootDeckState {
     lootDeck: Card[];
@@ -20,6 +20,14 @@ export const drawLootCard = (): AppThunk => (dispatch, getState) => {
     dispatch(setLootCardDrawn(lootDrawn));
 };
 
+export const playLootCard = (card: Card): AppThunk => (dispatch, getState) => {
+    const state = getState();
+    if (state.player.maxNumberLootCardsToPlay > state.player.numberLootCardsPlayed) {
+        dispatch(playCardEffects(card));
+        dispatch(lootCardPlayed(card));
+    }
+};
+
 export const lootDeckSlice = createSlice({
     name: 'lootDeck',
     initialState,
@@ -30,7 +38,7 @@ export const lootDeckSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(cardPlayed, (state, action) => {
+            .addCase(lootCardPlayed, (state, action) => {
                 if (action.payload.type === CardType.Loot) {
                     state.lootDiscardPile.push(action.payload);
                 }

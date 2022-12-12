@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Card } from '../../models/Card';
 import CardComponent from '../CardComponent/CardComponent';
-import { selectTreasureDeckActiveCards, selectTreasureDeckDiscardPile } from './TreasureDeckSlice';
-import { tryBuyActiveTreasureCard, tryBuyTopTreasureCard } from '../PlayerSlice';
+import { selectTreasureDeckActiveCards, selectTreasureDeckDiscardPile, 
+  tryBuyActiveTreasureCard, tryBuyTopTreasureCard } from './TreasureDeckSlice';
 import styles from './TreasureDeck.module.css';
 
 interface TreasureDeckProps {

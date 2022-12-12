@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../app/treasure-cards";
 import { Card } from "../../models/Card";
-import { buyActiveTreasureCard, buyTopTreasureCard, playCard } from "../PlayerSlice";
+import { buyActiveTreasureCard, buyTopTreasureCard, playCardEffects } from "../PlayerSlice";
 
 export interface TreasureDeckState {
     treasureDeck: Card[];
@@ -18,11 +18,21 @@ const initialState: TreasureDeckState = {
     maxActiveTreasureCards: 2
 };
 
-export const drawTreasureCard = (): AppThunk => (dispatch, getState) => {
+export const tryBuyTopTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
     const state = getState();
-    let treasureDrawn = state.treasureDeck.treasureDeck[state.treasureDeck.treasureDeck.length -1];
-    dispatch(setTreasureCardDrawn(treasureDrawn));
-    dispatch(playCard(treasureDrawn));
+    if (state.player.maxNumberTreasureCardPurchases > state.player.numberTreasureCardsBought && state.player.coins > 10) {
+        dispatch(buyTopTreasureCard(card));
+        dispatch(playCardEffects(card));
+    }
+};
+
+export const tryBuyActiveTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
+    const state = getState();
+    if (state.player.maxNumberTreasureCardPurchases > state.player.numberTreasureCardsBought && state.player.coins > 10) {
+        dispatch(buyActiveTreasureCard(card));
+        dispatch(playCardEffects(card));
+        dispatch(setActiveTreasureCards());
+    }
 };
 
 export const treasureDeckSlice = createSlice({
