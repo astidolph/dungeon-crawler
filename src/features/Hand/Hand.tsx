@@ -12,7 +12,7 @@ const Hand: FC<HandProps> = () => {
   return (
     <div className={styles.Hand}>
       {
-        hand.map((card) => <CardComponent hoverState card={card} effect={playLootCard(card)}></CardComponent>)
+        hand.map((card) => <CardComponent hoverState card={card} onClickEffect={playLootCard(card)}></CardComponent>)
       }
     </div>
   );
