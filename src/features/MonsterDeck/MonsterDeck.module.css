@@ -4,8 +4,9 @@
 }
 
 .Deck {
-    height: 150px;
-    width: 100px;
+    height: 200px;
+    width: 150px;
     border: 1px solid black;
     background: white;
+    text-align: center;
 }

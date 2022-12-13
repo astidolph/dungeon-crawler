@@ -1,6 +1,22 @@
 .Card {
-    height: 150px;
-    width: 100px;
+    height: 200px;
+    width: 150px;
     border: 1px solid black;
     background: white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.Card > div {
+    flex: 1;
+}
+
+.MonsterStatsContainer {
+    display: flex;
+}
+
+.MonsterStatsContainer > div {
+    flex: 1;
+    padding: 5px;
 }
