@@ -8,6 +8,7 @@ import { Action } from '@reduxjs/toolkit';
 interface CardComponentProps {
   card: Card;
   effect?: AppThunk<void> | Action;
+  hoverState?: boolean;
 }
 
 const CardComponent: FC<CardComponentProps> = (props) => {
@@ -15,7 +16,7 @@ const CardComponent: FC<CardComponentProps> = (props) => {
   
   return (
     <div>
-      <div className={styles.Card} 
+      <div className={`${styles.Card} ${props.hoverState ? styles.CardHover : ''}`} 
         onClick={() => props.effect !== undefined ? dispatch(props.effect) : null}>
           <div>{props.card.name}</div>
           <div>{props.card.description}</div>
@@ -27,6 +28,11 @@ const CardComponent: FC<CardComponentProps> = (props) => {
       </div>
     </div>
   );
+};
+
+
+CardComponent.defaultProps = {
+  hoverState: false
 };
 
 export default CardComponent;

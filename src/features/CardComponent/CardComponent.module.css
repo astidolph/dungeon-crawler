@@ -8,6 +8,14 @@
     text-align: center;
 }
 
+.CardHover:hover {
+    transform: scale(1.1);
+}
+
+.CardHover {
+    transition: all .2s ease-in-out;
+}
+
 .Card > div {
     flex: 1;
 }
