@@ -40,12 +40,11 @@ function App() {
       <div className="MonsterDeckContainer">
         <MonsterDeck title='Monster Deck' cards={monsterDeck}></MonsterDeck>
       </div>
-      <div className="GameBoardContainer"></div>
-      <div className="LootDeckContainer">
-        <LootDeck title="Loot Deck" cards={lootDeck}></LootDeck>
-      </div>
       <div className="ItemContainer">
         {items.map(card => <CardComponent card={card}></CardComponent>)}
+      </div>
+      <div className="LootDeckContainer">
+        <LootDeck title="Loot Deck" cards={lootDeck}></LootDeck>
       </div>
       <div className="PlayerStatsContainer">
         <p>Coins: {coins}</p>
