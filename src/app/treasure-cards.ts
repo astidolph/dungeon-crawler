@@ -37,6 +37,18 @@ const treasure_cards = {
                 }
             ],
             type: CardType.Treasure
+        },
+        {
+            "id": 3,
+            "name": "Ipecac",
+            "description": "+1 DMG",
+            "effects": [
+                {
+                    "payload": 1,
+                    "type": "player/gainTotalDMG"
+                }
+            ],
+            type: CardType.Treasure
         }
     ]  
 }    

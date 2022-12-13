@@ -29,7 +29,7 @@ function App() {
     dispatch(gainCoins(3));
     dispatch(setActiveTreasureCards());
     dispatch(setActiveMonsterCards());
-  }, []);
+  }, [dispatch]);
   
   return (
     <div className="App">
