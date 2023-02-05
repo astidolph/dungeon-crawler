@@ -27,24 +27,25 @@ export const drawMonsterCard = (): AppThunk => (dispatch, getState) => {
 
 export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getState) => {
     const state = getState();
-    if (state.monsterDeck.monsterInCombat === null) {
-        dispatch(setActiveMonster(monsterCard));
+    const monsterInCombat = state.monsterDeck.monsterInCombat;
+    if (monsterInCombat === null) {
+        dispatch(setMonsterInCombat(monsterCard));
     }
 
-    if (state.monsterDeck.monsterInCombat !== null) {
-        const diceRoll = Math.floor(Math.random() * 6) + 1;
+    if (monsterInCombat !== null) {
+        const diceRoll = rollDice();
         console.log('ROLL: ' + diceRoll);
-        const isAttackSuccess = diceRoll >= state.monsterDeck.monsterInCombat?.roll; 
+        const isAttackSuccess = hasDiceRollHit(diceRoll, monsterInCombat.roll);
         console.log('ATTACK SUCCESS? ' + isAttackSuccess);
-    
-        const playerDamage = state.player.currentDamage;
 
-        if (isAttackSuccess) 
-            dispatch(attackMonsterInCombat(playerDamage));
-        else
-            dispatch(playerAttacked(state.monsterDeck.monsterInCombat.damage));
+        const playerDamage = state.player.currentDamage;
+        isAttackSuccess ? dispatch(attackMonsterInCombat(playerDamage)) : dispatch(playerAttacked(monsterInCombat.damage));
     }
 };
+
+const rollDice = () => Math.floor(Math.random() * 6) + 1;
+
+const hasDiceRollHit = (diceRoll: number, monsterSuccessHit: number) => diceRoll >= monsterSuccessHit;
 
 export const monsterDeckSlice = createSlice({
     name: 'monsterDeck',
@@ -63,7 +64,7 @@ export const monsterDeckSlice = createSlice({
                 }
             }
         },
-        setActiveMonster: (state, action: PayloadAction<MonsterCard>) => {
+        setMonsterInCombat: (state, action: PayloadAction<MonsterCard>) => {
             state.monsterInCombat = {
                 id: action.payload.id,
                 totalHealth: action.payload.health,
@@ -94,7 +95,7 @@ export const monsterDeckSlice = createSlice({
     }
 });
 
-export const { setActiveMonsterCards, attackMonsterInCombat, setActiveMonster } = monsterDeckSlice.actions;
+export const { setActiveMonsterCards, attackMonsterInCombat, setMonsterInCombat } = monsterDeckSlice.actions;
 
 export const selectMonsterDeck = (state: RootState) => state.monsterDeck.monsterDeck;
 export const selectMonsterDeckDiscardPile = (state: RootState) => state.monsterDeck.monsterDiscardPile;

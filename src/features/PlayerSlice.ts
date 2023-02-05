@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { startTrackValue } from "@testing-library/user-event/dist/types/document/trackValue";
 import { AppThunk, RootState } from "../app/store";
 import { Card } from "../models/Card";
 import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
@@ -16,6 +15,8 @@ export interface PlayerState {
     numberLootCardsPlayed: number;
     maxNumberTreasureCardPurchases: number;
     numberTreasureCardsBought: number;
+    maxNumberCombat: number;
+    numberCombat: number;
 }
 
 const initialState: PlayerState = {
@@ -29,7 +30,9 @@ const initialState: PlayerState = {
     maxNumberLootCardsToPlay: 1,
     numberLootCardsPlayed: 0,
     maxNumberTreasureCardPurchases: 1,
-    numberTreasureCardsBought: 0
+    numberTreasureCardsBought: 0,
+    maxNumberCombat: 1,
+    numberCombat: 0
 };
 
 export const playCardEffects =
