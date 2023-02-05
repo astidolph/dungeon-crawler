@@ -18,8 +18,11 @@ const LootDeck: FC<LootDeckProps> = (props) => {
           <p>{props.title}</p>
           <p>{props.cards.length}</p>
         </div>
-        <div className={styles.DiscardPile}>
-          {discardPile.length > 0 && <CardComponent card={discardPile[discardPile.length -1]}></CardComponent>}
+        <div>
+          DISCARD
+          <div className={styles.DiscardPile}>
+            {discardPile.length > 0 && <CardComponent card={discardPile[discardPile.length -1]}></CardComponent>}
+          </div>
         </div>
       </div>
   );

@@ -4,10 +4,13 @@ export interface Card {
     description?: string;
     effects: Effect[];
     type: CardType;
-    health?: number;
-    damage?: number;
-    roll?: number;
-    reward?: Effect;
+}
+
+export interface MonsterCard extends Card {
+    health: number;
+    damage: number;
+    roll: number;
+    reward: Effect;
 }
 
 export interface Effect {

@@ -16,6 +16,19 @@
     transition: all .2s ease-in-out;
 }
 
+.InCombat {
+    background: red;
+}
+
 .Card > div {
     flex: 1;
+}
+
+.MonsterStatsContainer {
+    display: flex;
+}
+
+.MonsterStatsContainer > div {
+    flex: 1;
+    padding: 5px;
 }
