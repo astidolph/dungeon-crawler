@@ -3,4 +3,5 @@ export interface Monster {
     totalHealth: number;
     currentHealth: number;
     roll: number;
+    damage: number;
 }

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { startTrackValue } from "@testing-library/user-event/dist/types/document/trackValue";
 import { AppThunk, RootState } from "../app/store";
 import { Card } from "../models/Card";
 import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
@@ -39,6 +40,17 @@ export const playCardEffects =
     });
   };
 
+export const playerAttacked = (damage: number): AppThunk => 
+(dispatch, getState) => {
+    const state = getState();
+
+    dispatch(playerHealthDown(damage));
+
+    if (state.player.currentHealth <= 0) {
+        dispatch(playerDied());
+    }
+};
+
 export const playerSlice = createSlice({
     name: 'player',
     initialState,
@@ -71,6 +83,12 @@ export const playerSlice = createSlice({
                 state.coins -= 10;
                 state.numberTreasureCardsBought += 1;
             }
+        },
+        playerHealthDown: (state, action: PayloadAction<number>) => {
+            state.currentHealth -= 1;
+        },
+        playerDied: (state) => {
+            state.currentHealth = state.totalHealth;
         }
     },
     extraReducers: (builder) => {
@@ -84,7 +102,7 @@ export const playerSlice = createSlice({
     }
 });
 
-export const { lootCardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard } = playerSlice.actions;
+export const { lootCardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard, playerHealthDown, playerDied } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 

@@ -3,6 +3,7 @@ import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { MonsterCard } from "../../models/Card";
 import { Monster } from "../../models/Monster";
+import { playerAttacked, playerDied } from "../PlayerSlice";
 
 export interface DeckState {
     monsterDeck: MonsterCard[];
@@ -40,6 +41,8 @@ export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getStat
 
         if (isAttackSuccess) 
             dispatch(attackMonsterInCombat(playerDamage));
+        else
+            dispatch(playerAttacked(state.monsterDeck.monsterInCombat.damage));
     }
 };
 
@@ -65,7 +68,8 @@ export const monsterDeckSlice = createSlice({
                 id: action.payload.id,
                 totalHealth: action.payload.health,
                 currentHealth: action.payload.health,
-                roll: action.payload.roll
+                roll: action.payload.roll,
+                damage: action.payload.damage
             };
         },
         attackMonsterInCombat: (state, action: PayloadAction<number>) => {
@@ -82,6 +86,11 @@ export const monsterDeckSlice = createSlice({
                 state.monsterInCombat = null;
             }
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(playerDied, (state) => {
+            state.monsterInCombat = null;
+        })
     }
 });
 
