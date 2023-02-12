@@ -27,7 +27,7 @@ const MonsterDeck: FC<MonsterDeckProps> = (props) => {
           <div>
             ACTIVE
             <div className={styles.ActiveCards}>
-              {activeCards.map(card => <MonsterCardComponent card={card}></MonsterCardComponent>)}
+              {activeCards.map(card => <MonsterCardComponent onClickEffect={attack(card)} card={card}></MonsterCardComponent>)}
             </div>
           </div>
         }

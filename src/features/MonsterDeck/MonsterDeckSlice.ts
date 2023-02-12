@@ -39,9 +39,18 @@ export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getStat
         console.log('ATTACK SUCCESS? ' + isAttackSuccess);
 
         const playerDamage = state.player.currentDamage;
-        isAttackSuccess ? dispatch(attackMonsterInCombat(playerDamage)) : dispatch(playerAttacked(monsterInCombat.damage));
+        isAttackSuccess ? dispatch(attackMonsterInCombat(monsterCard, playerDamage)) : dispatch(playerAttacked(monsterInCombat.damage));
     }
 };
+
+export const attackMonsterInCombat = (monsterCard: MonsterCard, damage: number): AppThunk => 
+(dispatch, getState) => {
+    dispatch(monsterHealthDown(damage));
+    const monsterInCombat = selectMonsterInCombat(getState());
+    if (monsterInCombat !== null && monsterInCombat.currentHealth <= 0) {
+        dispatch(monsterDefeated(monsterCard));
+    }
+}
 
 const rollDice = () => Math.floor(Math.random() * 6) + 1;
 
@@ -73,19 +82,19 @@ export const monsterDeckSlice = createSlice({
                 damage: action.payload.damage
             };
         },
-        attackMonsterInCombat: (state, action: PayloadAction<number>) => {
+        monsterHealthDown: (state, action: PayloadAction<number>) => {
             if (state.monsterInCombat !== null) {
                 state.monsterInCombat.currentHealth -= action.payload;
                 console.log('Monster health lowers to: ' + state.monsterInCombat.currentHealth);
             }
-
-            if (state.monsterInCombat !== null && state.monsterInCombat.currentHealth <= 0) {
-                let activeMonsterCard = state.activeMonsterCards.find(x => x.id === state.monsterInCombat?.id);
-                if (activeMonsterCard !== undefined) 
-                    state.monsterDiscardPile.push(activeMonsterCard);
-                state.activeMonsterCards = state.activeMonsterCards.filter(x => x.id !== state.monsterInCombat?.id);
-                state.monsterInCombat = null;
-            }
+        },
+        monsterDefeated: (state, action: PayloadAction<MonsterCard>) => {
+            return {
+                ...state,
+                monsterDiscardPile: [action.payload, ...state.monsterDiscardPile],
+                activeMonsterCards: state.activeMonsterCards.filter(x => x.id !== action.payload.id),
+                monsterInCombat: null
+            }   
         }
     },
     extraReducers: (builder) => {
@@ -95,12 +104,11 @@ export const monsterDeckSlice = createSlice({
     }
 });
 
-export const { setActiveMonsterCards, attackMonsterInCombat, setMonsterInCombat } = monsterDeckSlice.actions;
+export const { setActiveMonsterCards, monsterHealthDown, setMonsterInCombat, monsterDefeated } = monsterDeckSlice.actions;
 
 export const selectMonsterDeck = (state: RootState) => state.monsterDeck.monsterDeck;
 export const selectMonsterDeckDiscardPile = (state: RootState) => state.monsterDeck.monsterDiscardPile;
 export const selectMonsterDeckActiveCards = (state: RootState) => state.monsterDeck.activeMonsterCards;
-
 export const selectMonsterInCombat = (state: RootState) => state.monsterDeck.monsterInCombat;
 
 export default monsterDeckSlice.reducer;
