@@ -25,14 +25,14 @@ const MonsterDeck: FC<MonsterDeckProps> = (props) => {
         {
           activeCards.length > 0 && 
           <div>
-            ACTIVE
+            ACTIVE MONSTERS
             <div className={styles.ActiveCards}>
               {activeCards.map(card => <MonsterCardComponent onClickEffect={attack(card)} card={card}></MonsterCardComponent>)}
             </div>
           </div>
         }
         <div>
-          DISCARD
+          DISCARDED MONSTERS
           <div className={styles.DiscardPile}>
             {discardPile.length > 0 && <MonsterCardComponent card={discardPile[discardPile.length -1]}></MonsterCardComponent>}
           </div>

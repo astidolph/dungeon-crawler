@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
-import { Card } from "../models/Card";
+import { Card, Effect } from "../models/Card";
 import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
+import { monsterDefeated } from "./MonsterDeck/MonsterDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -39,8 +40,15 @@ export const playCardEffects =
   (card: Card): AppThunk =>
   dispatch => {
     card.effects.forEach(effect => {
+        console.log('PLAY EFFECT: ' + effect.type + ' ' + effect.payload);
         dispatch(effect);
     });
+  };
+
+export const playEffect = (effect: Effect): AppThunk => 
+  dispatch => {
+    console.log('PLAY EFFECT: ' + effect.type + ' ' + effect.payload);
+    dispatch(effect);
   };
 
 export const playerAttacked = (damage: number): AppThunk => 

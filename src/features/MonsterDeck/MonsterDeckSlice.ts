@@ -3,7 +3,7 @@ import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { MonsterCard } from "../../models/Card";
 import { Monster } from "../../models/Monster";
-import { playerAttacked, playerDied } from "../PlayerSlice";
+import { playCardEffects, playEffect, playerAttacked, playerDied } from "../PlayerSlice";
 
 export interface DeckState {
     monsterDeck: MonsterCard[];
@@ -29,6 +29,7 @@ export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getStat
     const state = getState();
     const monsterInCombat = state.monsterDeck.monsterInCombat;
     if (monsterInCombat === null) {
+        console.log('PLAYER ENTERS COMBAT');
         dispatch(setMonsterInCombat(monsterCard));
     }
 
@@ -49,6 +50,7 @@ export const attackMonsterInCombat = (monsterCard: MonsterCard, damage: number):
     const monsterInCombat = selectMonsterInCombat(getState());
     if (monsterInCombat !== null && monsterInCombat.currentHealth <= 0) {
         dispatch(monsterDefeated(monsterCard));
+        dispatch(playEffect(monsterCard.reward));
     }
 }
 
