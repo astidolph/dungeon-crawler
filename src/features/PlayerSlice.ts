@@ -45,11 +45,11 @@ export const playCardEffects =
 
 export const playerAttacked = (damage: number): AppThunk => 
 (dispatch, getState) => {
-    const state = getState();
-
     dispatch(playerHealthDown(damage));
 
-    if (state.player.currentHealth <= 0) {
+    const playerHealth = selectHealth(getState());
+    if (playerHealth <= 0) {
+        console.log('PLAYER DIED');
         dispatch(playerDied());
     }
 };
