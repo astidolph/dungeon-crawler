@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
 import { Card, Effect } from "../models/Card";
 import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
-import { monsterDefeated } from "./MonsterDeck/MonsterDeckSlice";
+import { attack, monsterDefeated, setMonsterInCombat } from "./MonsterDeck/MonsterDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -110,10 +110,14 @@ export const playerSlice = createSlice({
                     hand: [card.payload, ...state.hand]
                 }
             })
+            .addCase(setMonsterInCombat, (state) => {
+                state.numberCombat += 1;
+            })
     }
 });
 
-export const { lootCardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard, playerHealthDown, playerDied } = playerSlice.actions;
+export const { lootCardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard, 
+    playerHealthDown, playerDied } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 

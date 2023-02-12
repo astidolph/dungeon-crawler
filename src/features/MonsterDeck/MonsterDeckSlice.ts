@@ -3,7 +3,7 @@ import monster_cards from "../../app/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { MonsterCard } from "../../models/Card";
 import { Monster } from "../../models/Monster";
-import { playCardEffects, playEffect, playerAttacked, playerDied } from "../PlayerSlice";
+import { playEffect, playerAttacked, playerDied } from "../PlayerSlice";
 
 export interface DeckState {
     monsterDeck: MonsterCard[];
@@ -27,13 +27,18 @@ export const drawMonsterCard = (): AppThunk => (dispatch, getState) => {
 
 export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getState) => {
     const state = getState();
+
     const monsterInCombat = state.monsterDeck.monsterInCombat;
+    if (monsterInCombat === null && state.player.numberCombat >= state.player.maxNumberCombat) {
+        console.log('ALREADY HIT MAXIMUM NUMBER COMBATS');
+        return;
+    }
+
     if (monsterInCombat === null) {
         console.log('PLAYER ENTERS COMBAT');
         dispatch(setMonsterInCombat(monsterCard));
     }
-
-    if (monsterInCombat !== null) {
+    else {
         const diceRoll = rollDice();
         console.log('ROLL: ' + diceRoll);
         const isAttackSuccess = hasDiceRollHit(diceRoll, monsterInCombat.roll);

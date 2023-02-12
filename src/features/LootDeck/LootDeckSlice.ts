@@ -22,10 +22,14 @@ export const drawLootCard = (): AppThunk => (dispatch, getState) => {
 
 export const playLootCard = (card: Card): AppThunk => (dispatch, getState) => {
     const state = getState();
-    if (state.player.maxNumberLootCardsToPlay > state.player.numberLootCardsPlayed) {
-        dispatch(playCardEffects(card));
-        dispatch(lootCardPlayed(card));
+    if (state.player.numberLootCardsPlayed >= state.player.maxNumberLootCardsToPlay) {
+        console.log('ALREADY HIT MAXIMUM LOOT CARDS PLAYED');
+        return;
     }
+
+    dispatch(playCardEffects(card));
+    dispatch(lootCardPlayed(card));
+
 };
 
 export const lootDeckSlice = createSlice({
