@@ -50,6 +50,7 @@ export const attackMonsterInCombat = (monsterCard: MonsterCard, damage: number):
     const monsterInCombat = selectMonsterInCombat(getState());
     if (monsterInCombat !== null && monsterInCombat.currentHealth <= 0) {
         dispatch(monsterDefeated(monsterCard));
+        dispatch(setActiveMonsterCards());
         dispatch(playEffect(monsterCard.reward));
     }
 }
