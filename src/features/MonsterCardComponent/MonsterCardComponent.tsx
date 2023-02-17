@@ -29,6 +29,7 @@ const MonsterCardComponent: FC<MonsterCardComponentProps> = (props) => {
             <div>⚅:{props.card.roll}+</div>
             <div>⚔:{props.card.damage}</div>
           </div>
+          <div>${props.card.reward.payload}</div>
       </div>
     </div>
   );
