@@ -33,7 +33,7 @@ function App() {
   
   return (
     <div className="App">
-      <div className="GameTitleContainer"></div>
+      <div className="GameTitleContainer">TURN 1</div>
       <div className="TreasureDeckContainer">
         <TreasureDeck title='Treasure Deck' cards={treasureDeck}></TreasureDeck>
       </div>
@@ -41,7 +41,7 @@ function App() {
         <MonsterDeck title='Monster Deck' cards={monsterDeck}></MonsterDeck>
       </div>
       <div className="ItemContainer">
-        {items.map(card => <CardComponent card={card}></CardComponent>)}
+        {items.map(card => <CardComponent card={card} style={{ boxShadow: 'inset 0px 0px 0px 5px #F0C162' }}></CardComponent>)}
       </div>
       <div className="LootDeckContainer">
         <LootDeck title="Loot Deck" cards={lootDeck}></LootDeck>

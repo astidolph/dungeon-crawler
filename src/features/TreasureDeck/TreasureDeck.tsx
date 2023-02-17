@@ -26,7 +26,7 @@ const TreasureDeck: FC<TreasureDeckProps> = (props) => {
         {
           activeCards.length > 0 && 
           <div className={styles.ActiveCards}>
-            {activeCards.map(card => <CardComponent card={card} onClickEffect={tryBuyActiveTreasureCard(card)}></CardComponent>)}
+            {activeCards.map(card => <CardComponent card={card} style={{ boxShadow: 'inset 0px 0px 0px 5px #F0C162' }} onClickEffect={tryBuyActiveTreasureCard(card)}></CardComponent>)}
           </div>
         }
         <div className={styles.DiscardPile}>
