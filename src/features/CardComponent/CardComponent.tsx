@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './CardComponent.module.css';
-import { Card, MonsterCard } from '../../models/Card';
+import { Card } from '../../models/Card';
 import { useAppDispatch } from '../../app/hooks';
 import { AppThunk } from '../../app/store';
 import { Action } from '@reduxjs/toolkit';
