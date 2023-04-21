@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import loot_cards from "../../app/loot-cards";
+import loot_cards from "../../assets/loot-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { Card, CardType } from "../../models/Card";
 import { lootCardPlayed, playCardEffects } from "../PlayerSlice";

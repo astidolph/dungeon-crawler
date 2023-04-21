@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import monster_cards from "../../app/monster-cards";
+import monster_cards from "../../assets/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { MonsterCard } from "../../models/Card";
 import { Monster } from "../../models/Monster";

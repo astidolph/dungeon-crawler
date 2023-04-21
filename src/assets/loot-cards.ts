@@ -12,7 +12,8 @@ const loot_cards = {
                     "type": "player/gainCoins"
                 }
             ],
-            type: CardType.Loot
+            type: CardType.Loot,
+            frontImage: './1_cent.png'
         },        
         {
             "id": 1,

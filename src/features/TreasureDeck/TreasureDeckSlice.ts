@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
-import treasure_cards from "../../app/treasure-cards";
+import treasure_cards from "../../assets/treasure-cards";
 import { Card } from "../../models/Card";
 import { buyActiveTreasureCard, buyTopTreasureCard, playCardEffects } from "../PlayerSlice";
 
