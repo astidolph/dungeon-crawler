@@ -7,8 +7,9 @@
     height: 200px;
     width: 150px;
     border: 1px solid black;
-    background: white;
+    background: black;
     text-align: center;
+    color: red;
 }
 
 .DiscardPile {
