@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
 import { Card, Effect } from "../models/Card";
-import { setLootCardDrawn } from "./LootDeck/LootDeckSlice";
-import { attack, monsterDefeated, setMonsterInCombat } from "./MonsterDeck/MonsterDeckSlice";
+import { drawLootCard, setLootCardDrawn } from "./LootDeck/LootDeckSlice";
+import { resetMonsterInCombat, setMonsterInCombat } from "./MonsterDeck/MonsterDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -18,6 +18,7 @@ export interface PlayerState {
     numberTreasureCardsBought: number;
     maxNumberCombat: number;
     numberCombat: number;
+    turn: number;
 }
 
 const initialState: PlayerState = {
@@ -33,7 +34,8 @@ const initialState: PlayerState = {
     maxNumberTreasureCardPurchases: 1,
     numberTreasureCardsBought: 0,
     maxNumberCombat: 1,
-    numberCombat: 0
+    numberCombat: 0,
+    turn: 1
 };
 
 export const playCardEffects =
@@ -62,6 +64,13 @@ export const playerAttacked = (damage: number): AppThunk =>
     }
 };
 
+export const endTurn = (): AppThunk => 
+    dispatch => {
+        dispatch(resetMonsterInCombat());
+        dispatch(turnEnded());
+        dispatch(drawLootCard());
+};
+
 export const playerSlice = createSlice({
     name: 'player',
     initialState,
@@ -82,14 +91,14 @@ export const playerSlice = createSlice({
             state.currentDamage += amount.payload;
         },
         buyTopTreasureCard: (state, action: PayloadAction<Card>) => {
-            if (state.coins > 10) {
+            if (state.coins >= 10) {
                 state.items.push(action.payload);
                 state.coins -= 10;
                 state.numberTreasureCardsBought += 1;
             }
         },        
         buyActiveTreasureCard: (state, action: PayloadAction<Card>) => {
-            if (state.coins > 10) {
+            if (state.coins >= 10) {
                 state.items.push(action.payload);
                 state.coins -= 10;
                 state.numberTreasureCardsBought += 1;
@@ -100,6 +109,13 @@ export const playerSlice = createSlice({
         },
         playerDied: (state) => {
             state.currentHealth = state.totalHealth;
+        },
+        turnEnded: (state) => {
+            state.turn += 1;
+            state.currentHealth = state.totalHealth;
+            state.numberLootCardsPlayed = 0;
+            state.numberTreasureCardsBought = 0;
+            state.numberCombat = 0;
         }
     },
     extraReducers: (builder) => {
@@ -117,7 +133,7 @@ export const playerSlice = createSlice({
 });
 
 export const { lootCardPlayed, gainCoins, buyTopTreasureCard, buyActiveTreasureCard, 
-    playerHealthDown, playerDied } = playerSlice.actions;
+    playerHealthDown, playerDied, turnEnded } = playerSlice.actions;
 
 export const selectHand = (state: RootState) => state.player.hand;
 
@@ -130,5 +146,7 @@ export const selectMaxHealth = (state: RootState) => state.player.totalHealth;
 export const selectDamage = (state: RootState) => state.player.currentDamage;
 
 export const selectItems = (state: RootState) => state.player.items;
+
+export const selectCurrentTurn = (state: RootState) => state.player.turn;
 
 export default playerSlice.reducer;

@@ -8,7 +8,8 @@ import { selectTreasureDeck, setActiveTreasureCards } from './features/TreasureD
 import Hand from './features/Hand/Hand';
 import LootDeck from './features/LootDeck/LootDeck';
 import MonsterDeck from './features/MonsterDeck/MonsterDeck';
-import { gainCoins, selectCoins, selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
+import { endTurn, gainCoins, selectCoins, selectCurrentTurn, 
+  selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
 import TreasureDeck from './features/TreasureDeck/TreasureDeck';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const treasureDeck = useAppSelector(selectTreasureDeck);
   const monsterDeck = useAppSelector(selectMonsterDeck);
   const items = useAppSelector(selectItems);
+  const currentTurn = useAppSelector(selectCurrentTurn);
 
   useEffect(() => {
     dispatch(drawLootCard());
@@ -33,7 +35,7 @@ function App() {
   
   return (
     <div className="App">
-      <div className="GameTitleContainer">TURN 1</div>
+      <div className="GameTitleContainer">TURN {currentTurn}</div>
       <div className="TreasureDeckContainer">
         <TreasureDeck title='Treasure Deck' cards={treasureDeck}></TreasureDeck>
       </div>
@@ -55,7 +57,7 @@ function App() {
         <Hand></Hand>
       </div>
       <div className="EndTurnContainer">
-        End Turn
+        <button onClick={() => dispatch(endTurn())}>End Turn</button>
       </div>
     </div>
   );

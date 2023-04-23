@@ -3,7 +3,7 @@ import monster_cards from "../../assets/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { MonsterCard } from "../../models/Card";
 import { Monster } from "../../models/Monster";
-import { playEffect, playerAttacked, playerDied } from "../PlayerSlice";
+import { endTurn, playEffect, playerAttacked, playerDied } from "../PlayerSlice";
 
 export interface DeckState {
     monsterDeck: MonsterCard[];
@@ -103,16 +103,21 @@ export const monsterDeckSlice = createSlice({
                 activeMonsterCards: state.activeMonsterCards.filter(x => x.id !== action.payload.id),
                 monsterInCombat: null
             }   
+        },
+        resetMonsterInCombat: (state) => {
+            state.monsterInCombat = null;
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(playerDied, (state) => {
-            state.monsterInCombat = null;
-        })
+        builder
+            .addCase(playerDied, (state) => {
+                state.monsterInCombat = null;
+            })
     }
 });
 
-export const { setActiveMonsterCards, monsterHealthDown, setMonsterInCombat, monsterDefeated } = monsterDeckSlice.actions;
+export const { setActiveMonsterCards, monsterHealthDown, 
+    setMonsterInCombat, monsterDefeated, resetMonsterInCombat } = monsterDeckSlice.actions;
 
 export const selectMonsterDeck = (state: RootState) => state.monsterDeck.monsterDeck;
 export const selectMonsterDeckDiscardPile = (state: RootState) => state.monsterDeck.monsterDiscardPile;

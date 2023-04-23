@@ -20,7 +20,7 @@ const initialState: TreasureDeckState = {
 
 export const tryBuyTopTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
     const state = getState();
-    if (state.player.maxNumberTreasureCardPurchases > state.player.numberTreasureCardsBought && state.player.coins > 10) {
+    if (state.player.maxNumberTreasureCardPurchases > state.player.numberTreasureCardsBought && state.player.coins >= 10) {
         dispatch(buyTopTreasureCard(card));
         dispatch(playCardEffects(card));
     }
@@ -28,7 +28,7 @@ export const tryBuyTopTreasureCard = (card: Card): AppThunk => (dispatch, getSta
 
 export const tryBuyActiveTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
     const state = getState();
-    if (state.player.maxNumberTreasureCardPurchases > state.player.numberTreasureCardsBought && state.player.coins > 10) {
+    if (state.player.maxNumberTreasureCardPurchases > state.player.numberTreasureCardsBought && state.player.coins >= 10) {
         dispatch(buyActiveTreasureCard(card));
         dispatch(playCardEffects(card));
         dispatch(setActiveTreasureCards());
