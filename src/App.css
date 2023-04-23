@@ -1,5 +1,6 @@
 .App {
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 0.1fr 1fr 1fr 1fr;
   gap: 0px 0px;
@@ -21,6 +22,7 @@
 
 .MonsterDeckContainer {
   grid-area: MonsterDeckContainer;
+  align-items: center;
 }
 
 .ItemContainer {
