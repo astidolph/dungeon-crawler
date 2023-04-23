@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../assets/treasure-cards";
 import { Card } from "../../models/Card";

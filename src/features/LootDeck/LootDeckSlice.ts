@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import loot_cards from "../../assets/loot-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { Card, CardType } from "../../models/Card";
-import { endTurn, lootCardPlayed, playCardEffects } from "../PlayerSlice";
+import { lootCardPlayed, playCardEffects } from "../PlayerSlice";
 
 export interface LootDeckState {
     lootDeck: Card[];
