@@ -9,7 +9,6 @@ interface CardComponentProps {
   card: Card;
   onClickEffect?: AppThunk<void> | Action;
   hoverState?: boolean;
-  style?: React.CSSProperties;
 }
 
 const CardComponent: FC<CardComponentProps> = (props) => {
@@ -17,7 +16,7 @@ const CardComponent: FC<CardComponentProps> = (props) => {
   
   return (
     <div>
-      <div className={`${styles.Card} ${props.hoverState ? styles.CardHover : ''}`}  style={props.style}
+      <div className={`${styles.Card} ${props.hoverState ? styles.CardHover : ''}`}
         onClick={() => props.onClickEffect !== undefined ? dispatch(props.onClickEffect) : null}>
           <div>{props.card.name}</div>
           <div>{props.card.description}</div>

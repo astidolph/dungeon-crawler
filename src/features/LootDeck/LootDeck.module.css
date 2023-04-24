@@ -9,6 +9,7 @@
     border: 1px solid black;
     background: #94ABAB;
     text-align: center;
+    border-radius: 10px;
 }
 
 .DiscardPile {
