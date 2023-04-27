@@ -32,7 +32,10 @@ const CardComponent: FC<CardComponentProps> = (props) => {
               <div>⚅:{(props.card as MonsterCard).roll}+</div>
               <div>⚔:{(props.card as MonsterCard).damage}</div>
             </div>
-            <div>${(props.card as MonsterCard).reward.payload}</div>
+            <div>
+              ${(props.card as MonsterCard).reward.payload} 
+              {(props.card as MonsterCard).soul && <span>👻{(props.card as MonsterCard).soul}</span>}
+            </div>
           </div>
           }
       </div>

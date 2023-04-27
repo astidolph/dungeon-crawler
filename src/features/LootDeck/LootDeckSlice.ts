@@ -16,8 +16,11 @@ const initialState: LootDeckState = {
 
 export const drawLootCard = (): AppThunk => (dispatch, getState) => {
     const state = getState();
-    let lootDrawn = state.lootDeck.lootDeck[state.lootDeck.lootDeck.length - 1];
-    dispatch(setLootCardDrawn(lootDrawn));
+    const lootDeck = state.lootDeck.lootDeck;
+    if (lootDeck.length > 0) {
+        let lootDrawn = lootDeck[lootDeck.length - 1];
+        dispatch(setLootCardDrawn(lootDrawn));
+    }
 };
 
 export const playLootCard = (card: Card): AppThunk => (dispatch, getState) => {

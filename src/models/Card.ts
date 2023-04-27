@@ -15,6 +15,7 @@ export class MonsterCard extends Card {
     damage!: number;
     roll!: number;
     reward!: Effect;
+    soul?: number;
 }
 
 export interface Effect {
