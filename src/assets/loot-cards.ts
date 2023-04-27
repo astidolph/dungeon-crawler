@@ -13,10 +13,21 @@ const loot_cards = {
                 }
             ],
             type: CardType.Loot,
-            frontImage: './1_cent.png'
-        },        
+        },  
         {
             "id": 1,
+            "name": "Coins!",
+            "description": "Gain 1 coin",
+            "effects": [
+                {
+                    "payload": 1,
+                    "type": "player/gainCoins"
+                }
+            ],
+            type: CardType.Loot,
+        },    
+        {
+            "id": 2,
             "name": "Coins!",
             "description": "Gain 2 coins",
             "effects": [
@@ -28,7 +39,7 @@ const loot_cards = {
             type: CardType.Loot
         },
         {
-            "id": 2,
+            "id": 3,
             "name": "Coins!",
             "description": "Gain 1 coin",
             "effects": [
@@ -40,7 +51,7 @@ const loot_cards = {
             type: CardType.Loot
         },
         {
-            "id": 3,
+            "id": 4,
             "name": "Coins!",
             "description": "Gain 2 coins",
             "effects": [
@@ -52,7 +63,7 @@ const loot_cards = {
             type: CardType.Loot
         },
         {
-            "id": 4,
+            "id": 5,
             "name": "Coins!",
             "description": "Gain 3 coins",
             "effects": [
@@ -64,7 +75,7 @@ const loot_cards = {
             type: CardType.Loot
         },
         {
-            "id": 5,
+            "id": 6,
             "name": "Coins!",
             "description": "Gain 5 coins",
             "effects": [
@@ -76,7 +87,7 @@ const loot_cards = {
             type: CardType.Loot
         },
         {
-            "id": 6,
+            "id": 7,
             "name": "Coins!",
             "description": "Gain 3 coins",
             "effects": [
@@ -88,7 +99,7 @@ const loot_cards = {
             type: CardType.Loot
         },
         {
-            "id": 7,
+            "id": 8,
             "name": "Coins!",
             "description": "Gain 10 coins",
             "effects": [
@@ -98,19 +109,7 @@ const loot_cards = {
                 }
             ],
             type: CardType.Loot
-        },
-        {
-            "id": 8,
-            "name": "Coins!",
-            "description": "Gain 1 coin",
-            "effects": [
-                {
-                    "payload": 1,
-                    "type": "player/gainCoins"
-                }
-            ],
-            type: CardType.Loot
-        },
+        }
     ]  
 }    
 
