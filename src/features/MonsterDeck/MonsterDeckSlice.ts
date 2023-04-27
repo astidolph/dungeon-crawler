@@ -21,10 +21,6 @@ const initialState: DeckState = {
     monsterInCombat: null
 };
 
-export const drawMonsterCard = (): AppThunk => (dispatch, getState) => {
-    // TO IMPLEMENT
-};
-
 export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getState) => {
     const state = getState();
 

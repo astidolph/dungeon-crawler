@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { MonsterCard } from '../../models/Card';
-import { attack, drawMonsterCard, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile } from './MonsterDeckSlice';
+import { attack, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile } from './MonsterDeckSlice';
 import styles from './MonsterDeck.module.css';
 import CardComponent from '../CardComponent/CardComponent';
 
@@ -11,14 +11,11 @@ interface MonsterDeckProps {
 }
 
 const MonsterDeck: FC<MonsterDeckProps> = (props) => {
-  const dispatch = useAppDispatch();
   const discardPile = useAppSelector(selectMonsterDeckDiscardPile);
   const activeCards = useAppSelector(selectMonsterDeckActiveCards);
   return (
       <div className={styles.DeckContainer}>
-        <div className={styles.Deck} data-testid="Deck" onClick={(_) => {
-          dispatch(drawMonsterCard())
-        }}>
+        <div className={styles.Deck} data-testid="Deck">
           <p>{props.title}</p>
           <p>{props.cards.length}</p>
         </div>
