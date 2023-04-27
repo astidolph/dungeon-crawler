@@ -3,13 +3,13 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import { drawLootCard, selectLootDeck, } from './features/LootDeck/LootDeckSlice';
-import { selectMonsterDeck, setActiveMonsterCards } from './features/MonsterDeck/MonsterDeckSlice';
+import { selectMonsterDeck, setActiveMonsterCards, shuffle } from './features/MonsterDeck/MonsterDeckSlice';
 import { selectTreasureDeck, setActiveTreasureCards } from './features/TreasureDeck/TreasureDeckSlice';
 import Hand from './features/Hand/Hand';
 import LootDeck from './features/LootDeck/LootDeck';
 import MonsterDeck from './features/MonsterDeck/MonsterDeck';
 import { endTurn, gainCoins, selectCoins, selectCurrentTurn, 
-  selectDamage, selectHealth, selectItems, selectLives, selectMaxHealth } from './features/PlayerSlice';
+  selectDamage, selectHealth, selectItems, selectLives, selectMaxHealth, selectSouls } from './features/PlayerSlice';
 import TreasureDeck from './features/TreasureDeck/TreasureDeck';
 
 function App() {
@@ -24,8 +24,10 @@ function App() {
   const items = useAppSelector(selectItems);
   const currentTurn = useAppSelector(selectCurrentTurn);
   const lives = useAppSelector(selectLives);
+  const souls = useAppSelector(selectSouls);
 
   useEffect(() => {
+    dispatch(shuffle());
     dispatch(drawLootCard());
     dispatch(drawLootCard());
     dispatch(drawLootCard());
@@ -54,6 +56,7 @@ function App() {
         <p>Health: {health}/{maxHealth}</p>
         <p>Damage: {damage}</p>
         <p>Lives: {lives}</p>
+        <p>Souls: {souls}</p>
       </div>
       <div className="HandContainer">
         <Hand></Hand>
@@ -66,6 +69,14 @@ function App() {
         <div className="Overlay">
           <div className="OverlayText">
             You have died! <button className="NewGameButton">New Game</button>
+          </div>
+        </div>
+      }
+
+      {souls >= 4 &&
+        <div className="Overlay">
+          <div className="OverlayText">
+            Congratulations you have won! <button className="NewGameButton">New Game</button>
           </div>
         </div>
       }

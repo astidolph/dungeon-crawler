@@ -3,7 +3,7 @@ import monster_cards from "../../assets/monster-cards";
 import { AppThunk, RootState } from "../../app/store";
 import { MonsterCard } from "../../models/Card";
 import { Monster } from "../../models/Monster";
-import { playEffect, playerAttacked, playerDied } from "../PlayerSlice";
+import { increaseSouls, playEffect, playerAttacked, playerDied } from "../PlayerSlice";
 
 export interface DeckState {
     monsterDeck: MonsterCard[];
@@ -20,6 +20,17 @@ const initialState: DeckState = {
     maxActiveMonsterCards: 2,
     monsterInCombat: null
 };
+
+const shuffleDeck = (monsterCards: MonsterCard[]): MonsterCard[] => {
+  let i = monsterCards.length - 1;
+  for (; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = monsterCards[i];
+    monsterCards[i] = monsterCards[j];
+    monsterCards[j] = temp;
+  }
+  return monsterCards;
+}
 
 export const attack = (monsterCard: MonsterCard): AppThunk => (dispatch, getState) => {
     const state = getState();
@@ -49,10 +60,14 @@ export const attackMonsterInCombat = (monsterCard: MonsterCard, damage: number):
 (dispatch, getState) => {
     dispatch(monsterHealthDown(damage));
     const monsterInCombat = selectMonsterInCombat(getState());
-    if (monsterInCombat !== null && monsterInCombat.currentHealth <= 0) {
+    const monsterDied = monsterInCombat !== null && monsterInCombat.currentHealth <= 0;
+    if (monsterDied) {
         dispatch(monsterDefeated(monsterCard));
         dispatch(setActiveMonsterCards());
         dispatch(playEffect(monsterCard.reward));
+        if (monsterCard.soul) {
+            dispatch(increaseSouls());
+        }
     }
 }
 
@@ -64,6 +79,9 @@ export const monsterDeckSlice = createSlice({
     name: 'monsterDeck',
     initialState,
     reducers: {
+        shuffle: (state) => {
+            state.monsterDeck = shuffleDeck(state.monsterDeck);
+        },
         setActiveMonsterCards: (state) => {
             const numActiveMonsterCards = state.activeMonsterCards.length;
             const maxActiveMonsterCards = state.maxActiveMonsterCards;
@@ -113,7 +131,7 @@ export const monsterDeckSlice = createSlice({
 });
 
 export const { setActiveMonsterCards, monsterHealthDown, 
-    setMonsterInCombat, monsterDefeated, resetMonsterInCombat } = monsterDeckSlice.actions;
+    setMonsterInCombat, monsterDefeated, resetMonsterInCombat, shuffle } = monsterDeckSlice.actions;
 
 export const selectMonsterDeck = (state: RootState) => state.monsterDeck.monsterDeck;
 export const selectMonsterDeckDiscardPile = (state: RootState) => state.monsterDeck.monsterDiscardPile;
