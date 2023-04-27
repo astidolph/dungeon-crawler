@@ -9,7 +9,7 @@ import Hand from './features/Hand/Hand';
 import LootDeck from './features/LootDeck/LootDeck';
 import MonsterDeck from './features/MonsterDeck/MonsterDeck';
 import { endTurn, gainCoins, selectCoins, selectCurrentTurn, 
-  selectDamage, selectHealth, selectItems, selectMaxHealth } from './features/PlayerSlice';
+  selectDamage, selectHealth, selectItems, selectLives, selectMaxHealth } from './features/PlayerSlice';
 import TreasureDeck from './features/TreasureDeck/TreasureDeck';
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
   const monsterDeck = useAppSelector(selectMonsterDeck);
   const items = useAppSelector(selectItems);
   const currentTurn = useAppSelector(selectCurrentTurn);
+  const lives = useAppSelector(selectLives);
 
   useEffect(() => {
     dispatch(drawLootCard());
@@ -52,6 +53,7 @@ function App() {
         <p>Coins: {coins}</p>
         <p>Health: {health}/{maxHealth}</p>
         <p>Damage: {damage}</p>
+        <p>Lives: {lives}</p>
       </div>
       <div className="HandContainer">
         <Hand></Hand>
@@ -59,6 +61,12 @@ function App() {
       <div className="EndTurnContainer">
         <button onClick={() => dispatch(endTurn())}>End Turn</button>
       </div>
+
+      {lives <= 0 &&
+        <div className="Overlay">
+          <div className="OverlayText">You have died! <button className="NewGameButton">New Game</button></div>
+        </div>
+      }
     </div>
   );
 }

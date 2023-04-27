@@ -19,6 +19,7 @@ export interface PlayerState {
     maxNumberCombat: number;
     numberCombat: number;
     turn: number;
+    lives: number;
 }
 
 const initialState: PlayerState = {
@@ -35,7 +36,8 @@ const initialState: PlayerState = {
     numberTreasureCardsBought: 0,
     maxNumberCombat: 1,
     numberCombat: 0,
-    turn: 1
+    turn: 1,
+    lives: 1
 };
 
 export const playCardEffects =
@@ -61,6 +63,7 @@ export const playerAttacked = (damage: number): AppThunk =>
     if (playerHealth <= 0) {
         console.log('PLAYER DIED');
         dispatch(playerDied());
+        dispatch(turnEnded());
     }
 };
 
@@ -109,9 +112,11 @@ export const playerSlice = createSlice({
         },
         playerDied: (state) => {
             state.currentHealth = state.totalHealth;
+            state.lives -= 1;
         },
         turnEnded: (state) => {
             state.turn += 1;
+            state.lives -= 1;
             state.currentHealth = state.totalHealth;
             state.numberLootCardsPlayed = 0;
             state.numberTreasureCardsBought = 0;
@@ -148,5 +153,7 @@ export const selectDamage = (state: RootState) => state.player.currentDamage;
 export const selectItems = (state: RootState) => state.player.items;
 
 export const selectCurrentTurn = (state: RootState) => state.player.turn;
+
+export const selectLives = (state: RootState) => state.player.lives;
 
 export default playerSlice.reducer;
