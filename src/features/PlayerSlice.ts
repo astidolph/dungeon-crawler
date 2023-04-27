@@ -37,7 +37,7 @@ const initialState: PlayerState = {
     maxNumberCombat: 1,
     numberCombat: 0,
     turn: 1,
-    lives: 1
+    lives: 8
 };
 
 export const playCardEffects =

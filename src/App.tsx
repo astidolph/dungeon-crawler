@@ -64,7 +64,9 @@ function App() {
 
       {lives <= 0 &&
         <div className="Overlay">
-          <div className="OverlayText">You have died! <button className="NewGameButton">New Game</button></div>
+          <div className="OverlayText">
+            You have died! <button className="NewGameButton">New Game</button>
+          </div>
         </div>
       }
     </div>
