@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Card } from '../../models/Card';
+import { MonsterCard } from '../../models/Card';
 import { attack, drawMonsterCard, selectMonsterDeckActiveCards, selectMonsterDeckDiscardPile } from './MonsterDeckSlice';
 import styles from './MonsterDeck.module.css';
-import MonsterCardComponent from '../MonsterCardComponent/MonsterCardComponent';
+import CardComponent from '../CardComponent/CardComponent';
 
 interface MonsterDeckProps {
   title: string;
-  cards: Card[];
+  cards: MonsterCard[];
 }
 
 const MonsterDeck: FC<MonsterDeckProps> = (props) => {
@@ -27,14 +27,14 @@ const MonsterDeck: FC<MonsterDeckProps> = (props) => {
           <div>
             ACTIVE MONSTERS
             <div className={styles.ActiveCards}>
-              {activeCards.map(card => <MonsterCardComponent onClickEffect={attack(card)} card={card}></MonsterCardComponent>)}
+              {activeCards.map(card => <CardComponent onClickEffect={attack(card)} card={card}></CardComponent>)}
             </div>
           </div>
         }
         <div>
           DISCARDED MONSTERS
           <div className={styles.DiscardPile}>
-            {discardPile.length > 0 && <MonsterCardComponent card={discardPile[discardPile.length -1]}></MonsterCardComponent>}
+            {discardPile.length > 0 && <CardComponent card={discardPile[discardPile.length -1]}></CardComponent>}
           </div>
         </div>
       </div>

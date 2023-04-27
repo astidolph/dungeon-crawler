@@ -1,16 +1,20 @@
-export interface Card {
-    id: number;
-    name: string;
+export class Card {
+    id!: number;
+    name!: string;
     description?: string;
-    effects: Effect[];
-    type: CardType;
+    effects!: Effect[];
+    type!: CardType;
 }
 
-export interface MonsterCard extends Card {
-    health: number;
-    damage: number;
-    roll: number;
-    reward: Effect;
+export class LootCard extends Card {}
+
+export class TreasureCard extends Card {}
+
+export class MonsterCard extends Card {
+    health!: number;
+    damage!: number;
+    roll!: number;
+    reward!: Effect;
 }
 
 export interface Effect {

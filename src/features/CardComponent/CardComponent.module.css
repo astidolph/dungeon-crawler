@@ -20,3 +20,16 @@
 .Card > div {
     flex: 1;
 }
+
+.MonsterStatsContainer {
+    display: flex;
+}
+
+.MonsterStatsContainer>div {
+    flex: 1;
+    padding: 5px;
+}
+
+.InCombat {
+    background: red;
+}
