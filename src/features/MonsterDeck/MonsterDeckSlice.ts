@@ -79,7 +79,7 @@ export const monsterDeckSlice = createSlice({
     name: 'monsterDeck',
     initialState,
     reducers: {
-        shuffle: (state) => {
+        shuffleMonsterDeck: (state) => {
             state.monsterDeck = shuffleDeck(state.monsterDeck);
         },
         setActiveMonsterCards: (state) => {
@@ -131,7 +131,7 @@ export const monsterDeckSlice = createSlice({
 });
 
 export const { setActiveMonsterCards, monsterHealthDown, 
-    setMonsterInCombat, monsterDefeated, resetMonsterInCombat, shuffle } = monsterDeckSlice.actions;
+    setMonsterInCombat, monsterDefeated, resetMonsterInCombat, shuffleMonsterDeck } = monsterDeckSlice.actions;
 
 export const selectMonsterDeck = (state: RootState) => state.monsterDeck.monsterDeck;
 export const selectMonsterDeckDiscardPile = (state: RootState) => state.monsterDeck.monsterDiscardPile;

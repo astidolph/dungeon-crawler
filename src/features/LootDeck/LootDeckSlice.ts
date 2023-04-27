@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import loot_cards from "../../assets/loot-cards";
 import { AppThunk, RootState } from "../../app/store";
-import { Card, CardType } from "../../models/Card";
+import { Card, CardType, LootCard } from "../../models/Card";
 import { lootCardPlayed, playCardEffects } from "../PlayerSlice";
 
 export interface LootDeckState {
@@ -13,6 +13,17 @@ const initialState: LootDeckState = {
     lootDeck: loot_cards.cards,
     lootDiscardPile: []
 };
+
+const shuffleDeck = (lootCards: LootCard[]): LootCard[] => {
+  let i = lootCards.length - 1;
+  for (; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = lootCards[i];
+    lootCards[i] = lootCards[j];
+    lootCards[j] = temp;
+  }
+  return lootCards;
+}
 
 export const drawLootCard = (): AppThunk => (dispatch, getState) => {
     const state = getState();
@@ -39,6 +50,9 @@ export const lootDeckSlice = createSlice({
     name: 'lootDeck',
     initialState,
     reducers: {
+        shuffleLootDeck: (state) => {
+            state.lootDeck = shuffleDeck(state.lootDeck);
+        },
         setLootCardDrawn: (state, action: PayloadAction<Card>) => {
             state.lootDeck.pop(); 
         }
@@ -53,7 +67,7 @@ export const lootDeckSlice = createSlice({
     }
 });
 
-export const { setLootCardDrawn } = lootDeckSlice.actions;
+export const { setLootCardDrawn, shuffleLootDeck } = lootDeckSlice.actions;
 
 export const selectLootDeck = (state: RootState) => state.lootDeck.lootDeck;
 export const selectLootDeckDiscardPile = (state: RootState) => state.lootDeck.lootDiscardPile;

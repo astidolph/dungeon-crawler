@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import treasure_cards from "../../assets/treasure-cards";
-import { Card } from "../../models/Card";
+import { Card, TreasureCard } from "../../models/Card";
 import { buyActiveTreasureCard, buyTopTreasureCard, playCardEffects } from "../PlayerSlice";
 
 export interface TreasureDeckState {
@@ -17,6 +17,17 @@ const initialState: TreasureDeckState = {
     activeTreasureCards: [],
     maxActiveTreasureCards: 2
 };
+
+const shuffleDeck = (treasureCards: TreasureCard[]): TreasureCard[] => {
+  let i = treasureCards.length - 1;
+  for (; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = treasureCards[i];
+    treasureCards[i] = treasureCards[j];
+    treasureCards[j] = temp;
+  }
+  return treasureCards;
+}
 
 export const tryBuyTopTreasureCard = (card: Card): AppThunk => (dispatch, getState) => {
     const state = getState();
@@ -39,6 +50,9 @@ export const treasureDeckSlice = createSlice({
     name: 'treasureDeck',
     initialState,
     reducers: {
+        shuffleTreasureDeck: (state) => {
+            state.treasureDeck = shuffleDeck(state.treasureDeck);
+        },
         setActiveTreasureCards: (state) => {
             const numActiveTreasureCards = state.activeTreasureCards.length;
             const maxActiveTreasureCards = state.maxActiveTreasureCards;
@@ -64,7 +78,7 @@ export const treasureDeckSlice = createSlice({
     }
 });
 
-export const { setActiveTreasureCards } = treasureDeckSlice.actions;
+export const { setActiveTreasureCards, shuffleTreasureDeck } = treasureDeckSlice.actions;
 
 export const selectTreasureDeck = (state: RootState) => state.treasureDeck.treasureDeck;
 

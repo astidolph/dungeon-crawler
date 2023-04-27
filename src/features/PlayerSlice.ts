@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../app/store";
 import { Card, Effect } from "../models/Card";
-import { drawLootCard, setLootCardDrawn } from "./LootDeck/LootDeckSlice";
-import { resetMonsterInCombat, setMonsterInCombat } from "./MonsterDeck/MonsterDeckSlice";
+import { drawLootCard, setLootCardDrawn, shuffleLootDeck } from "./LootDeck/LootDeckSlice";
+import { resetMonsterInCombat, setMonsterInCombat, shuffleMonsterDeck } from "./MonsterDeck/MonsterDeckSlice";
+import { shuffleTreasureDeck } from "./TreasureDeck/TreasureDeckSlice";
 
 export interface PlayerState {
     hand: Card[];
@@ -40,6 +41,13 @@ const initialState: PlayerState = {
     turn: 1,
     lives: 8,
     souls: 0
+};
+
+export const shuffleAll = (): AppThunk => 
+    dispatch => {
+        dispatch(shuffleMonsterDeck());
+        dispatch(shuffleLootDeck());
+        dispatch(shuffleTreasureDeck())
 };
 
 export const playCardEffects =

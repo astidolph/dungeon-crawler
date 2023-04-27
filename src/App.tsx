@@ -3,13 +3,13 @@ import './App.css';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import CardComponent from './features/CardComponent/CardComponent';
 import { drawLootCard, selectLootDeck, } from './features/LootDeck/LootDeckSlice';
-import { selectMonsterDeck, setActiveMonsterCards, shuffle } from './features/MonsterDeck/MonsterDeckSlice';
+import { selectMonsterDeck, setActiveMonsterCards } from './features/MonsterDeck/MonsterDeckSlice';
 import { selectTreasureDeck, setActiveTreasureCards } from './features/TreasureDeck/TreasureDeckSlice';
 import Hand from './features/Hand/Hand';
 import LootDeck from './features/LootDeck/LootDeck';
 import MonsterDeck from './features/MonsterDeck/MonsterDeck';
 import { endTurn, gainCoins, selectCoins, selectCurrentTurn, 
-  selectDamage, selectHealth, selectItems, selectLives, selectMaxHealth, selectSouls } from './features/PlayerSlice';
+  selectDamage, selectHealth, selectItems, selectLives, selectMaxHealth, selectSouls, shuffleAll } from './features/PlayerSlice';
 import TreasureDeck from './features/TreasureDeck/TreasureDeck';
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
   const souls = useAppSelector(selectSouls);
 
   useEffect(() => {
-    dispatch(shuffle());
+    dispatch(shuffleAll());
     dispatch(drawLootCard());
     dispatch(drawLootCard());
     dispatch(drawLootCard());
