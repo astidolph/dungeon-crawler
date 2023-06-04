@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Dungeon Crawler Repo
+
+Created for fun to learn some React Redux, a clone of a board game called the Binding of Isaac Four Souls. Needs progressing much further, only a couple of cards have been implemented out of the actual game.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
